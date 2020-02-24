@@ -1,0 +1,57 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\awalf\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Program Files (x86)\IntelSWTools\system_studio_2020\OpenCL\runtime\cpu\windows\compiler\lib\intel64_win;C:\Program Files (x86)\IntelSWTools\system_studio_2020\OpenCL\runtime\cpu\windows\compiler\lib\ia32_win;C:\Program Files (x86)\IntelSWTools\system_studio_2020\OpenCL\sdk\bin\x64;C:\Program Files (x86)\IntelSWTools\system_studio_2020\OpenCL\sdk\bin\x86;C:\Program Files (x86)\IntelSWTools\system_studio_2020\OpenCL\sdk\bin\Pin;C:\Program Files (x86)\IntelSWTools\system_studio_2020\OpenCL\sdk\bin\GTPin;C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\wbin;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.2.2\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.2.2\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Program Files\dotnet\;C:\Program Files\Haskell Platform\8.2.2\mingw\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\bin\git.exe;C:\Program Files\Git\cmd;C:\Program Files\MongoDB\Server\4.0\bin;C:\Program Files\Java\jdk1.8.0_161\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\PuTTY\;C:\Users\awalf\AppData\Roaming\cabal\bin;C:\Users\awalf\AppData\Roaming\local\bin;C:\Users\awalf\AppData\Local\Programs\Python\Python36-32\Scripts\;C:\Users\awalf\AppData\Local\Programs\Python\Python36-32\;C:\Users\awalf\AppData\Local\Microsoft\WindowsApps;;C:\Users\awalf\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\awalf\AppData\Roaming\npm;C:\Users\awalf\AppData\Local\.meteor;C:\Users\awalf\.dotnet\tools;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
+
+Yarn version: 
+  1.22.0
+
+Node version: 
+  10.15.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/jsc-android/-/jsc-android-245459.0.0.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Users\awalf\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141354:19)
+      at Object.onceWrapper (events.js:277:13)
+      at ClientRequest.emit (events.js:189:13)
+      at TLSSocket.emitRequestTimeout (_http_client.js:662:40)
+      at Object.onceWrapper (events.js:277:13)
+      at TLSSocket.emit (events.js:189:13)
+      at TLSSocket.Socket._onTimeout (net.js:443:8)
+      at ontimeout (timers.js:436:11)
+      at tryOnTimeout (timers.js:300:5)
+      at listOnTimeout (timers.js:263:5)
+
+npm manifest: 
+  {
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "expo": "~36.0.0",
+      "react": "~16.9.0",
+      "react-dom": "~16.9.0",
+      "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+      "react-native-web": "~0.11.7"
+    },
+    "devDependencies": {
+      "babel-preset-expo": "~8.0.0",
+      "@babel/core": "^7.0.0"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
