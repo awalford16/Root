@@ -8,6 +8,23 @@ import TransportOptions from '../components/TransportOptions';
 import { TouchableOpacity } from 'react-native';
 
 export default class HomeScreen extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedTransport: "walk",
+            destination: ""
+        }
+        this.handleTransportChange = this.handleTransportChange.bind(this);
+    }
+
+
+    handleTransportChange = (opt) => {
+        this.setState({selectedTransport: opt.title});
+
+        // Calculate stats for destination, if set
+    }
+    
 
     render() {
         return (
@@ -18,12 +35,12 @@ export default class HomeScreen extends Component {
                     <Ionicons name="ios-leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
                 </Titlebar>
 
-                <TransportOptions selected="car" />
+                <TransportOptions selected={this.state.selectedTransport} changeTransport={this.handleTransportChange} />
 
                 <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 10 }}>
                     <DonateButton>
                         Donate{'   '}
-                        <Icon name="globe" size={32} color={colours.green} />
+                        <Icon name="globe" size={25} color={colours.green} />
                     </DonateButton>
                 </TouchableOpacity>
             </Container>
@@ -46,11 +63,11 @@ const Titlebar = styled.View`
 const DonateButton = styled.Text`
     border: 2px solid ${colours.green};
     color: ${colours.green};
-    border-radius: 35px;
+    border-radius: 30px;
     margin: 20px;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 25px;
-    padding: 20px;
+    padding: 15px;
     align-self: flex-start;
 }`;
 

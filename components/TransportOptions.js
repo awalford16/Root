@@ -9,6 +9,13 @@ import { NavigationEvents } from 'react-navigation';
 export default class TransportOptions extends Component {
     constructor(props) {
         super(props);
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    // Pass selected option back to parent
+    handleChange = (opt) => {
+        this.props.changeTransport(opt);
     }
 
     render() {
@@ -16,7 +23,7 @@ export default class TransportOptions extends Component {
             <Container>
                 {
                     transportList.map((option, index) => (
-                        <TrasnportContainer key={index}>
+                        <TrasnportContainer key={index} onPress={this.handleChange.bind(this, option)}>
                             <Ionicons name={option.icon} size={40} color={option.title == this.props.selected ? colours.green : colours.grey} />
                         </TrasnportContainer>
                     ))
