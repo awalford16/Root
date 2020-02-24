@@ -4,27 +4,42 @@ import styled from 'styled-components';
 
 import { transportList } from '../data/transport';
 import colours from './Colours';
-import { ScrollView } from 'react-native-gesture-handler';
+import { NavigationEvents } from 'react-navigation';
 
 export default class TransportOptions extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return(
             <Container>
                 {
-                    transportList.map((option, index) => {
-                        <Ionicons name={option.icon} size={32} color={colours.green} />
-                    })
+                    transportList.map((option, index) => (
+                        <TrasnportContainer key={index}>
+                            <Ionicons name={option.icon} size={40} color={option.title == this.props.selected ? colours.green : colours.grey} />
+                        </TrasnportContainer>
+                    ))
                 }
             </Container>
         )
     }
 }
 
-const Container = styled.View``;
+const Container = styled.View`
+    flex-direction: row;
+    flex: 0.15;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: ${colours.background};
+    margin-top: 20px;
+`;
 
-const ButtonContainer = styled.View`
-    background-color: 'black';
-    border: 1px solid #000;
-    border-radius: 50px;
-    flex: 1;
+
+const TrasnportContainer = styled.TouchableOpacity`
+    background-color: ${colours.background};
+    width: 75px;
+    height: 75px;
+    align-items: center;
 `;

@@ -4,10 +4,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colours from '../components/Colours';
-import { transportList } from '../data/transport';
+import TransportOptions from '../components/TransportOptions';
 import { TouchableOpacity } from 'react-native';
 
 export default class HomeScreen extends Component {
+
     render() {
         return (
             <Container>
@@ -16,6 +17,8 @@ export default class HomeScreen extends Component {
                     <Title>Green Path</Title>
                     <Ionicons name="ios-leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
                 </Titlebar>
+
+                <TransportOptions selected="car" />
 
                 <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 10 }}>
                     <DonateButton>
@@ -38,10 +41,6 @@ const Titlebar = styled.View`
     width: 100%;
     height: 120px;
     padding-top: 60px;
-`;
-
-const TransportOptions = styled.View`
-    background-color: ${colours.green};
 `;
 
 const DonateButton = styled.Text`

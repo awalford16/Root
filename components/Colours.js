@@ -4,7 +4,7 @@ export default {
     green: '#2F683D',
     white: '#FFFFFF',
     red: '#bb1d68',
-    grey: 'grey',
+    grey: '#bbb',
     unselected: '#60926D'
   };
   
