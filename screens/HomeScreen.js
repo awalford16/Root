@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { TouchableOpacity } from 'react-native';
 
 import colours from '../components/Colours';
 import TransportOptions from '../components/TransportOptions';
-import { TouchableOpacity } from 'react-native';
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -16,6 +15,7 @@ export default class HomeScreen extends Component {
             destination: ""
         }
         this.handleTransportChange = this.handleTransportChange.bind(this);
+        this.updateDestination = this.updateDestination.bind(this);
     }
 
 
@@ -24,25 +24,46 @@ export default class HomeScreen extends Component {
 
         // Calculate stats for destination, if set
     }
+
+    updateDestination = (dest) => {
+        // Search for destination
+
+        this.setState({
+            destination: dest
+        });
+    }
     
 
     render() {
         return (
             <Container>
                 <Titlebar>
-                    <Ionicons name="ios-person" size={32} color={colours.white} style={{ position:'absolute', left: 30, top: 60 }} />
+                    <Icon name="user-circle" size={32} color={colours.white} style={{ position:'absolute', left: 30, top: 60 }} />
                     <Title>Green Path</Title>
-                    <Ionicons name="ios-leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
+                    <Icon name="leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
                 </Titlebar>
 
                 <TransportOptions selected={this.state.selectedTransport} changeTransport={this.handleTransportChange} />
 
-                <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 10 }}>
+                <Destination placeholder="Where to Today?" value={this.state.destination.value} onChangeText={this.updateDestination} />
+
+                <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 5 }}>
                     <DonateButton>
                         Donate{'   '}
                         <Icon name="globe" size={25} color={colours.green} />
                     </DonateButton>
                 </TouchableOpacity>
+
+                <GoButton style={{ position:'absolute', bottom: 20, right: 5 }} 
+                    disabled={!this.state.destination} 
+                    destination={this.state.destination}
+                >
+                    <GoText>START</GoText>
+                    <Icon name="arrow-circle-right" size={55} 
+                        color={this.state.destination ? colours.white : colours.grey} 
+                        style={{alignSelf: 'center', padding: 3 }} 
+                    />
+                </GoButton>
             </Container>
         )
     }
@@ -60,6 +81,18 @@ const Titlebar = styled.View`
     padding-top: 60px;
 `;
 
+const Destination = styled.TextInput`
+    width: 70%;
+    background-color: ${colours.white};
+    align-self: center;
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;
+    color: ${colours.black};
+    border: 1px solid ${colours.grey};
+    border-radius: 30px;
+`;
+
 const DonateButton = styled.Text`
     border: 2px solid ${colours.green};
     color: ${colours.green};
@@ -70,6 +103,20 @@ const DonateButton = styled.Text`
     padding: 15px;
     align-self: flex-start;
 }`;
+
+const GoButton = styled.TouchableOpacity`
+    margin: 20px;
+    background-color: ${(props) => !props.destination ? colours.background : colours.green }
+    flex-direction: row;
+    border-radius: 30px;
+`;
+
+const GoText = styled.Text`
+    color: ${colours.background};
+    align-self: center;
+    padding: 15px;
+    font-size: 25px;
+`;
 
 const Title = styled.Text`
     color: ${colours.white};
