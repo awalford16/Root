@@ -35,7 +35,7 @@ export default class TransportOptions extends Component {
 
 const Container = styled.View`
     flex-direction: row;
-    flex: 0.15;
+    flex: 0.12;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-evenly;
@@ -47,6 +47,6 @@ const Container = styled.View`
 const TrasnportContainer = styled.TouchableOpacity`
     background-color: ${colours.background};
     width: 75px;
-    height: 75px;
+    height: 60px;
     align-items: center;
 `;

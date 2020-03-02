@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import colours from '../components/Colours';
 import TransportOptions from '../components/TransportOptions';
+import DonateButton from '../components/DonateButton';
+
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -17,7 +19,6 @@ export default class HomeScreen extends Component {
         this.handleTransportChange = this.handleTransportChange.bind(this);
         this.updateDestination = this.updateDestination.bind(this);
     }
-
 
     handleTransportChange = (opt) => {
         this.setState({selectedTransport: opt.title});
@@ -33,7 +34,6 @@ export default class HomeScreen extends Component {
         });
     }
     
-
     render() {
         return (
             <Container>
@@ -47,12 +47,7 @@ export default class HomeScreen extends Component {
 
                 <Destination placeholder="Where to Today?" value={this.state.destination.value} onChangeText={this.updateDestination} />
 
-                <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 5 }}>
-                    <DonateButton>
-                        Donate{'   '}
-                        <Icon name="globe" size={25} color={colours.green} />
-                    </DonateButton>
-                </TouchableOpacity>
+                <DonateButton />
 
                 <GoButton style={{ position:'absolute', bottom: 20, right: 5 }} 
                     disabled={!this.state.destination} 
@@ -92,17 +87,6 @@ const Destination = styled.TextInput`
     border: 1px solid ${colours.grey};
     border-radius: 30px;
 `;
-
-const DonateButton = styled.Text`
-    border: 2px solid ${colours.green};
-    color: ${colours.green};
-    border-radius: 30px;
-    margin: 20px;
-    font-weight: 700;
-    font-size: 25px;
-    padding: 15px;
-    align-self: flex-start;
-}`;
 
 const GoButton = styled.TouchableOpacity`
     margin: 20px;

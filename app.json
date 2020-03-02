@@ -24,7 +24,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.uol.greenpath",
+      "config": {
+        "googleMapsApiKey": ""
+      }
+    },
+    "android": {
+      "package": "com.uol.greenpath",
+      "config": {
+        "googleMaps": {"apiKey": ""}
+      }
     }
   }
 }
