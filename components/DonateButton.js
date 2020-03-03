@@ -11,7 +11,7 @@ export default function DonateButton() {
         <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 5 }} onPress={() => navigation.navigate("Donate")}>
             <DonateText>
                 Donate{'   '}
-                <Icon name="globe" size={30} color={colours.green} />
+                <Icon name="handshake-o" size={30} color={colours.green} />
             </DonateText>
         </TouchableOpacity>
     )

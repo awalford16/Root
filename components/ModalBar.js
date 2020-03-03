@@ -15,9 +15,9 @@ export default function ModalBar() {
                 onPress={() => navigation.goBack()} />
             <Icon name="user-circle" size={32} color={colours.white} style={{ position:'absolute', left: 30, top: 60 }} />
             <NavTabs>
-                <Icon name="list" size={25} color={colours.unselected} />
-                <Icon name="list" size={25} color={colours.white} />
-                <Icon name="list" size={25} color={colours.unselected} />
+                <Icon name="bar-chart-o" size={25} color={colours.unselected} />
+                <Icon name="handshake-o" size={25} color={colours.white} />
+                <Icon name="history" size={25} color={colours.unselected} />
             </NavTabs>
         </Container>
     );
@@ -26,7 +26,7 @@ export default function ModalBar() {
 const Container = styled.View`
     background-color: ${colours.green};
     width: 100%;
-    flex: 0.14;
+    flex: 0.15;
     padding-top: 60px;
 `;
 
