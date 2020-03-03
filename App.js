@@ -27,7 +27,7 @@ function ModalStackScreen() {
 function MainStackScreen() {
   return(
     <MainStack.Navigator>
-      <MainStack.Screen name="Home" component={HomeScreen} />
+      <MainStack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}  />
     </MainStack.Navigator>
   );
 }
@@ -36,8 +36,8 @@ function App() {
   return(
     <NavigationContainer>
       <RootStack.Navigator mode="modal">
-        <RootStack.Screen name="Main" component={MainStackScreen} options={{headerShown: false}} />
-        <RootStack.Screen name="Modal" component={ModalStackScreen} options={{headerShown: false}} />
+        <RootStack.Screen name="Main" component={MainStackScreen} options={{headerShown: false}}  />
+        <RootStack.Screen name="Donate" component={DonateScreen} options={{headerShown: false}} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

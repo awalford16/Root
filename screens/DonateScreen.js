@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Modal, Keyboard } from 'react-native';
 
 import colours from '../components/Colours';
-import TransportOptions from '../components/TransportOptions';
-import { NavigationEvents } from 'react-navigation';
-import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import ModalBar from '../components/ModalBar';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default class DonateScreen extends Component {
 
     render() {
-        const navigation = useNavigation();
         return (
             <Container>
-                <Titlebar>
-                    <Icon name="user-circle" size={32} color={colours.white} style={{ position:'absolute', left: 30, top: 60 }} />
-                    <Title>Green Path</Title>
-                    <Icon name="leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
-                </Titlebar>
+                <ModalBar />
+
+                <DonateStats>
+                    <Icon name="gbp" size={30} />
+                    <DonateAmount value="1.00" keyboardType="numeric" maxLength={5} onSubmit={Keyboard.dismiss()} />
+                    
+                </DonateStats>
+
+                <CharitySlider>
+                    <CharityInfo>This is a charity.</CharityInfo>
+                </CharitySlider>
+                
             </Container>
         )
     }
@@ -29,16 +34,30 @@ const Container = styled.View`
     flex: 1;
 `;
 
-const Titlebar = styled.View`
-    background-color: ${colours.green};
-    width: 100%;
-    height: 120px;
-    padding-top: 60px;
+const CharitySlider = styled.View`
+    flex: 0.5;
+    border: 2px solid ${colours.green};
+    width: 90%;
+    border-radius: 40px;
+    padding: 8%;
+    align-self: center;
+    margin: 2%;
 `;
 
-const Title = styled.Text`
-    color: ${colours.white};
+const CharityInfo = styled.Text`
+    font-size: 20px;
+    font-weight: 700;
+`;
+
+const DonateStats = styled.View`
+    flex: 0.18;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+`;
+
+const DonateAmount = styled.TextInput`
     font-weight: 600;
-    font-size: 30px;
-    text-align: center;
+    font-size: 50px;
+    margin: 5%;
 `;

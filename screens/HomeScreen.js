@@ -39,7 +39,7 @@ export default class HomeScreen extends Component {
             <Container>
                 <Titlebar>
                     <Icon name="user-circle" size={32} color={colours.white} style={{ position:'absolute', left: 30, top: 60 }} />
-                    <Title>Green Path</Title>
+                    <Title>GreenPath</Title>
                     <Icon name="leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
                 </Titlebar>
 
