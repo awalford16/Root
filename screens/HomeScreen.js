@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import colours from '../components/Colours';
 import TransportOptions from '../components/TransportOptions';
 import DonateButton from '../components/DonateButton';
+import Map from '../components/Map';
 
 
 export default class HomeScreen extends Component {
@@ -46,6 +47,8 @@ export default class HomeScreen extends Component {
                 <TransportOptions selected={this.state.selectedTransport} changeTransport={this.handleTransportChange} />
 
                 <Destination placeholder="Where to Today?" value={this.state.destination.value} onChangeText={this.updateDestination} />
+
+                <Map />
 
                 <DonateButton />
 

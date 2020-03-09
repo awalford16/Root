@@ -1,6 +1,6 @@
 export default {
     blue: '#00a896',
-    background: '#eee',
+    background: '#efefef',
     green2: '#2F683D',
     green: '#339966',
     white: '#FFFFFF',
@@ -10,3 +10,4 @@ export default {
     unselected: '#72c096'
   };
   
+  // 339966
