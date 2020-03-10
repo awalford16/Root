@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
 
 import colours from '../components/Colours';
 import TransportOptions from '../components/TransportOptions';
 import DonateButton from '../components/DonateButton';
-import Map from '../components/Map';
+import MapContainer from '../components/MapContainer';
 
 
 export default class HomeScreen extends Component {
@@ -18,21 +17,12 @@ export default class HomeScreen extends Component {
             destination: ""
         }
         this.handleTransportChange = this.handleTransportChange.bind(this);
-        this.updateDestination = this.updateDestination.bind(this);
     }
 
     handleTransportChange = (opt) => {
         this.setState({selectedTransport: opt.title});
 
         // Calculate stats for destination, if set
-    }
-
-    updateDestination = (dest) => {
-        // Search for destination
-
-        this.setState({
-            destination: dest
-        });
     }
     
     render() {
@@ -46,15 +36,14 @@ export default class HomeScreen extends Component {
 
                 <TransportOptions selected={this.state.selectedTransport} changeTransport={this.handleTransportChange} />
 
-                <Destination placeholder="Where to Today?" value={this.state.destination.value} onChangeText={this.updateDestination} />
-
-                <Map />
+                <MapContainer />
 
                 <DonateButton />
 
                 <GoButton style={{ position:'absolute', bottom: 20, right: 5 }} 
                     disabled={!this.state.destination} 
                     destination={this.state.destination}
+                    onPress={() => this.updateDestination(this.destination.value)}
                 >
                     <GoText>START</GoText>
                     <Icon name="arrow-circle-right" size={55} 
@@ -77,18 +66,6 @@ const Titlebar = styled.View`
     width: 100%;
     height: 120px;
     padding-top: 60px;
-`;
-
-const Destination = styled.TextInput`
-    width: 70%;
-    background-color: ${colours.white};
-    align-self: center;
-    padding: 15px;
-    font-size: 20px;
-    text-align: center;
-    color: ${colours.black};
-    border: 1px solid ${colours.grey};
-    border-radius: 30px;
 `;
 
 const GoButton = styled.TouchableOpacity`

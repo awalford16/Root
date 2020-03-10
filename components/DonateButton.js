@@ -10,15 +10,14 @@ export default function DonateButton() {
     return (
         <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 5 }} onPress={() => navigation.navigate("Donate")}>
             <DonateText>
-                Donate{'   '}
-                <Icon name="handshake-o" size={30} color={colours.green} />
+                
+                <Icon name="handshake-o" size={40} color={colours.green} />
             </DonateText>
         </TouchableOpacity>
     )
 }
 
 const DonateText = styled.Text`
-    border: 2px solid ${colours.green};
     color: ${colours.green};
     border-radius: 30px;
     margin: 20px;
