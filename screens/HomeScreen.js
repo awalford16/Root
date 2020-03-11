@@ -21,8 +21,6 @@ export default class HomeScreen extends Component {
 
     handleTransportChange = (opt) => {
         this.setState({selectedTransport: opt.title});
-
-        // Calculate stats for destination, if set
     }
     
     render() {

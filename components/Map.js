@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import MapView from 'react-native-maps';
 import styled from 'styled-components';
 import MapViewDirections from 'react-native-maps-directions';
 
 import colours from './Colours';
 import {DIRECTIONS_KEY} from '../key';
+import { Dimensions } from 'react-native';
+
+let mapView = null;
+const {width, height} = Dimensions.get('window');
 
 const Map = (props) => {
     return(
@@ -15,7 +19,8 @@ const Map = (props) => {
                 initialRegion={props.region}
                 showsUserLocation={true}
                 followsUserLocation={true}
-                showsMyLocationButton={true}>
+                showsMyLocationButton={true}
+                ref={m => mapView = m}>
 
                 {props.destination.latitude ? 
                     <MapView.Marker coordinate={props.destination} /> 
@@ -31,8 +36,17 @@ const Map = (props) => {
                         mode={props.transportMode}
                         waypoints={[props.destination]}
                         onReady={result => {
-                            console.log(`${result.distance}km`);
-                            console.log(`${result.duration} min`);
+                            console.log(`${(result.distance).toFixed(1)}km`);
+                            console.log(`${Math.ceil(result.duration)}min`);
+
+                            mapView.fitToCoordinates(result.coordinates, {
+                                edgePadding: {
+                                    right: (width / 10),
+                                    bottom: (height / 10),
+                                    left: (width / 10),
+                                    top: (height / 10),
+                                }
+                            });
                         }}
                     /> 
                 : null}
