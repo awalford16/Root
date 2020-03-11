@@ -4,9 +4,18 @@ import styled from 'styled-components';
 import colours from './Colours';
 
 class LocationItem extends PureComponent {
+    _handlePress = async() => {
+        const res = await this.props.fetchDetails(this.props.place_id);
+
+        let {lat, lng} = res.geometry.location;
+        
+        this.props.setDestination(lat, lng);
+        this.props.hideList();
+    }
+
     render() {
         return(
-            <Container>
+            <Container onPress={this._handlePress}>
                 <Place>{this.props.description}</Place>
             </Container>
         );
@@ -15,7 +24,7 @@ class LocationItem extends PureComponent {
 
 export default LocationItem;
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
     flex: 0.2;
     padding: 12px;
     border-bottom-width: 1px;

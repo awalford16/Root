@@ -1,16 +1,16 @@
 export const transportList = [
     {
-        title: "walk",
+        title: "WALKING",
         icon: "ios-walk",
         points: 8
     },
     {
-        title: "bike",
+        title: "BICYCLING",
         icon: "ios-bicycle",
         points: 10
     },
     {
-        title: "car",
+        title: "DRIVING",
         icon: "ios-car",
         points: 4
     }

@@ -19,6 +19,10 @@ export default class MapContainer extends Component {
                 longitude:null,
                 latitudeDelta:null,
                 longitudeDelta:null
+            },
+            destination: {
+                latitude: null,
+                longitude: null
             }
         }
     }
@@ -39,7 +43,6 @@ export default class MapContainer extends Component {
                 longitudeDelta: lonDelta
             }
         });
-        console.log(this.state);
     }
 
     componentDidMount() {
@@ -53,11 +56,20 @@ export default class MapContainer extends Component {
         )
     }
 
+    updateDestination = (lat, lng) => {
+        this.setState({
+            destination: {
+                latitude: lat,
+                longitude: lng
+            }
+        });
+    }
+
     render() {
         return(
             <Container>
-                <Destination location={this.state.region} />
-                { this.state.region.latitude ? <Map region={this.state.region} /> : null }
+                <Destination location={this.state.region} setDestination={this.updateDestination} />
+                { this.state.region.latitude ? <Map region={this.state.region} destination={this.state.destination} transportMode={this.props.transportMode} /> : null }
             </Container>
         );
     }

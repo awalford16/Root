@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MapView from 'react-native-maps';
 import styled from 'styled-components';
-import {Dimensions} from 'react-native';
-import Geocoder from 'react-native-geocoder-reborn';
+import MapViewDirections from 'react-native-maps-directions';
 
 import colours from './Colours';
+import {DIRECTIONS_KEY} from '../key';
 
 const Map = (props) => {
-    console.log(props);
     return(
         <Container>
             <MapView 
@@ -16,7 +15,28 @@ const Map = (props) => {
                 initialRegion={props.region}
                 showsUserLocation={true}
                 followsUserLocation={true}
-                showsMyLocationButton={true} />
+                showsMyLocationButton={true}>
+
+                {props.destination.latitude ? 
+                    <MapView.Marker coordinate={props.destination} /> 
+                : null}
+
+                {props.destination.latitude ? 
+                    <MapViewDirections 
+                        origin={props.region} 
+                        destination={props.destination} 
+                        apikey={DIRECTIONS_KEY} 
+                        strokeWidth={3}
+                        strokeColor={colours.green}
+                        mode={props.transportMode}
+                        waypoints={[props.destination]}
+                        onReady={result => {
+                            console.log(`${result.distance}km`);
+                            console.log(`${result.duration} min`);
+                        }}
+                    /> 
+                : null}
+            </MapView>
         </Container>
             
     );

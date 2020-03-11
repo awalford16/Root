@@ -13,7 +13,7 @@ export default class HomeScreen extends Component {
         super(props);
 
         this.state = {
-            selectedTransport: "walk",
+            selectedTransport: "WALKING",
             destination: ""
         }
         this.handleTransportChange = this.handleTransportChange.bind(this);
@@ -36,7 +36,7 @@ export default class HomeScreen extends Component {
 
                 <TransportOptions selected={this.state.selectedTransport} changeTransport={this.handleTransportChange} />
 
-                <MapContainer />
+                <MapContainer transportMode={this.state.selectedTransport} />
 
                 <DonateButton />
 
