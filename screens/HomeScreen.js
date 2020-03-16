@@ -16,32 +16,44 @@ export default class HomeScreen extends Component {
 
         this.state = {
             selectedTransport: "WALKING",
+            transportIcon: "ios-walk",
             journeyReady: false,
-            journeyStats: {
+            journeyInfo: {
                 location: "",
                 time: 0,
                 dist: 0,
                 points: 0,
-                co2: 0
+                co2: 0,
+                region: {
+                    latitude: null,
+                    longitude: null
+                },
+                destination: {
+                    latidtude: null,
+                    longitude: null
+                }
             }
+
         }
         this.handleTransportChange = this.handleTransportChange.bind(this);
     }
 
     handleTransportChange = (opt) => {
-        this.setState({selectedTransport: opt.title});
+        this.setState({selectedTransport: opt.title, transportIcon: opt.icon});
     }
 
-    updateJourney = (dest, time, dist) => {
+    updateJourney = (dest, time, dist, reg, end) => {
         // Calculate stats
 
         console.log(dest);
         this.setState({
             journeyReady: true,
-            journeyStats: {
+            journeyInfo: {
                 location: dest,
                 time: time,
-                dist: dist
+                dist: dist,
+                region: reg,
+                destination: end
             }
         });
     }
@@ -61,7 +73,11 @@ export default class HomeScreen extends Component {
 
                 <DonateButton />
 
-                <StartButton journeyReady={this.state.journeyReady} stats={this.state.journeyStats} />
+                <StartButton 
+                    journeyReady={this.state.journeyReady} 
+                    stats={this.state.journeyInfo} 
+                    transport={this.state.transportIcon}
+                    />
             </Container>
         )
     }

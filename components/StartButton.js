@@ -10,7 +10,7 @@ export default function StartButton(props) {
     return(
         <GoButton style={{ position:'absolute', bottom: 20, right: 5, backgroundColor: !props.journeyReady ? colours.background : colours.green }} 
             disabled={!props.journeyReady} 
-            onPress={() => navigation.navigate('Journey')}
+            onPress={() => navigation.navigate('Journey', { stats: props.stats, transport: props.transport })}
         >
             { props.journeyReady ? <GoText>START</GoText> : null }
             <Icon name="arrow-circle-right" size={55} 

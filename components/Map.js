@@ -5,7 +5,7 @@ import MapViewDirections from 'react-native-maps-directions';
 
 import colours from './Colours';
 import {DIRECTIONS_KEY} from '../key';
-import { Dimensions } from 'react-native';
+import { Dimensions, Text } from 'react-native';
 
 let mapView = null;
 const {width, height} = Dimensions.get('window');
@@ -39,7 +39,9 @@ const Map = (props) => {
                             console.log(`${(result.distance).toFixed(1)}km`);
                             console.log(`${Math.ceil(result.duration)}min`);
 
-                            props.updateJourney(props.destination.name, result.duration, (result.distance).toFixed(2))
+                            props.updateJourney && props.updateJourney(props.destination.name, 
+                                (result.duration).toFixed(0), 
+                                (result.distance).toFixed(1), props.region, props.destination);
 
                             mapView.fitToCoordinates(result.coordinates, {
                                 edgePadding: {
@@ -51,7 +53,7 @@ const Map = (props) => {
                             });
                         }}
                     /> 
-                : null}
+                : <Text>No Map Available.</Text>}
             </MapView>
         </Container>
             

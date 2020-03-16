@@ -29,7 +29,7 @@ function MainStackScreen() {
   return(
     <MainStack.Navigator>
       <MainStack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}  />
-      <MainStack.Screen name="Journey" component={JourneyScreen} />
+      <MainStack.Screen name="Journey" component={JourneyScreen} options={{headerShown: false}} />
     </MainStack.Navigator>
   );
 }
