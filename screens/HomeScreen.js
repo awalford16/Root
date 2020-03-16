@@ -6,6 +6,8 @@ import colours from '../components/Colours';
 import TransportOptions from '../components/TransportOptions';
 import DonateButton from '../components/DonateButton';
 import MapContainer from '../components/MapContainer';
+import StartButton from '../components/StartButton';
+import Destination from '../components/Destination';
 
 
 export default class HomeScreen extends Component {
@@ -14,13 +16,34 @@ export default class HomeScreen extends Component {
 
         this.state = {
             selectedTransport: "WALKING",
-            destination: ""
+            journeyReady: false,
+            journeyStats: {
+                location: "",
+                time: 0,
+                dist: 0,
+                points: 0,
+                co2: 0
+            }
         }
         this.handleTransportChange = this.handleTransportChange.bind(this);
     }
 
     handleTransportChange = (opt) => {
         this.setState({selectedTransport: opt.title});
+    }
+
+    updateJourney = (dest, time, dist) => {
+        // Calculate stats
+
+        console.log(dest);
+        this.setState({
+            journeyReady: true,
+            journeyStats: {
+                location: dest,
+                time: time,
+                dist: dist
+            }
+        });
     }
     
     render() {
@@ -34,21 +57,11 @@ export default class HomeScreen extends Component {
 
                 <TransportOptions selected={this.state.selectedTransport} changeTransport={this.handleTransportChange} />
 
-                <MapContainer transportMode={this.state.selectedTransport} />
+                <MapContainer transportMode={this.state.selectedTransport} updateJourney={this.updateJourney} />
 
                 <DonateButton />
 
-                <GoButton style={{ position:'absolute', bottom: 20, right: 5 }} 
-                    disabled={!this.state.destination} 
-                    destination={this.state.destination}
-                    onPress={() => this.updateDestination(this.destination.value)}
-                >
-                    <GoText>START</GoText>
-                    <Icon name="arrow-circle-right" size={55} 
-                        color={this.state.destination ? colours.white : colours.grey} 
-                        style={{alignSelf: 'center', padding: 3 }} 
-                    />
-                </GoButton>
+                <StartButton journeyReady={this.state.journeyReady} stats={this.state.journeyStats} />
             </Container>
         )
     }
@@ -64,20 +77,6 @@ const Titlebar = styled.View`
     width: 100%;
     height: 120px;
     padding-top: 60px;
-`;
-
-const GoButton = styled.TouchableOpacity`
-    margin: 20px;
-    background-color: ${(props) => !props.destination ? colours.background : colours.green }
-    flex-direction: row;
-    border-radius: 30px;
-`;
-
-const GoText = styled.Text`
-    color: ${colours.background};
-    align-self: center;
-    padding: 15px;
-    font-size: 25px;
 `;
 
 const Title = styled.Text`

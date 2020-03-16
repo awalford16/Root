@@ -39,6 +39,8 @@ const Map = (props) => {
                             console.log(`${(result.distance).toFixed(1)}km`);
                             console.log(`${Math.ceil(result.duration)}min`);
 
+                            props.updateJourney(props.destination.name, result.duration, (result.distance).toFixed(2))
+
                             mapView.fitToCoordinates(result.coordinates, {
                                 edgePadding: {
                                     right: (width / 10),

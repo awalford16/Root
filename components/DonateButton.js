@@ -8,9 +8,8 @@ import { useNavigation } from '@react-navigation/native';
 export default function DonateButton() {
     const navigation = useNavigation();
     return (
-        <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 5 }} onPress={() => navigation.navigate("Donate")}>
+        <TouchableOpacity style={{ position:'absolute', bottom: 20, left: 5 }} onPress={() => navigation.navigate("Modal")}>
             <DonateText>
-                
                 <Icon name="handshake-o" size={40} color={colours.green} />
             </DonateText>
         </TouchableOpacity>

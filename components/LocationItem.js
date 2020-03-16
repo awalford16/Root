@@ -8,8 +8,9 @@ class LocationItem extends PureComponent {
         const res = await this.props.fetchDetails(this.props.place_id);
 
         let {lat, lng} = res.geometry.location;
-        
-        this.props.setDestination(lat, lng);
+        let name = res.name;
+
+        this.props.setDestination(name, lat, lng);
         this.props.hideList();
     }
 

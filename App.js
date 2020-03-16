@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import HomeScreen from './screens/HomeScreen';
 import DonateScreen from './screens/DonateScreen';
+import JourneyScreen from './screens/JourneyScreen';
 
 const RootStack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -19,7 +20,7 @@ const Ops = {
 function ModalStackScreen() {
   return(
     <ModalStack.Navigator>
-      <ModalStack.Screen name="Donate" component={DonateScreen} />
+      <ModalStack.Screen name="Donate" component={DonateScreen} options={{headerShown: false}}/>
     </ModalStack.Navigator>
   );
 }
@@ -28,6 +29,7 @@ function MainStackScreen() {
   return(
     <MainStack.Navigator>
       <MainStack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}  />
+      <MainStack.Screen name="Journey" component={JourneyScreen} />
     </MainStack.Navigator>
   );
 }
@@ -37,7 +39,7 @@ function App() {
     <NavigationContainer>
       <RootStack.Navigator mode="modal">
         <RootStack.Screen name="Main" component={MainStackScreen} options={{headerShown: false}}  />
-        <RootStack.Screen name="Donate" component={DonateScreen} options={{headerShown: false}} />
+        <RootStack.Screen name="Modal" component={ModalStackScreen} options={{headerShown: false}} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

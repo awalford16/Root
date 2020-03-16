@@ -56,9 +56,10 @@ export default class MapContainer extends Component {
         )
     }
 
-    updateDestination = (lat, lng) => {
+    updateDestination = (name, lat, lng) => {
         this.setState({
             destination: {
+                name: name,
                 latitude: lat,
                 longitude: lng
             }
@@ -69,7 +70,12 @@ export default class MapContainer extends Component {
         return(
             <Container>
                 <Destination location={this.state.region} setDestination={this.updateDestination} />
-                { this.state.region.latitude ? <Map region={this.state.region} destination={this.state.destination} transportMode={this.props.transportMode} /> : null }
+                { this.state.region.latitude ? <Map 
+                    region={this.state.region} 
+                    destination={this.state.destination} 
+                    transportMode={this.props.transportMode} 
+                    updateJourney={this.props.updateJourney}
+                /> : null }
             </Container>
         );
     }
