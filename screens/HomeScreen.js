@@ -32,6 +32,11 @@ export default class HomeScreen extends Component {
                     latidtude: null,
                     longitude: null
                 }
+            },
+            transportInfo: {
+                method: "WALKING",
+                icon: "ios-walk",
+                maxSpeed: 5
             }
 
         }
@@ -39,7 +44,11 @@ export default class HomeScreen extends Component {
     }
 
     handleTransportChange = (opt) => {
-        this.setState({selectedTransport: opt.title, transportIcon: opt.icon});
+        this.setState({transportInfo: {
+            method: opt.title, 
+            icon: opt.icon,
+            maxSpeed: opt.speed
+        }});
     }
 
     updateJourney = (dest, time, dist, reg, end) => {
@@ -67,7 +76,7 @@ export default class HomeScreen extends Component {
                     <Icon name="leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
                 </Titlebar>
 
-                <TransportOptions selected={this.state.selectedTransport} changeTransport={this.handleTransportChange} />
+                <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
 
                 <MapContainer transportMode={this.state.selectedTransport} updateJourney={this.updateJourney} />
 
@@ -76,7 +85,7 @@ export default class HomeScreen extends Component {
                 <StartButton 
                     journeyReady={this.state.journeyReady} 
                     stats={this.state.journeyInfo} 
-                    transport={this.state.transportIcon}
+                    transport={this.state.transportInfo}
                     />
             </Container>
         )

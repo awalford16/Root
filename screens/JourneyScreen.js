@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Accelerometer} from 'expo-sensors';
 import styled from 'styled-components';
 import {View, Text} from 'react-native'; 
 
@@ -12,7 +11,9 @@ export default class JourneyScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            speed: 0
+            speed: 0,
+            alertCount: 0,
+            currentPoints: 0
         }
     }
 
@@ -20,9 +21,22 @@ export default class JourneyScreen extends Component {
     componentDidMount() {
         this.watchPosition = navigator.geolocation.watchPosition(
             (position) => {
-                this.setState({speed: (position.coords.speed).toFixed(0)});
+                // Conver mps to kmh
+                let kmh = (position.coords.speed) * 3.6;
+
+                this.setState({speed: (kmh).toFixed(0)});
             }
         );
+    }
+
+    componentDidUpdate() {
+        let speed = this.props.route.params.transport.maxSpeed;
+
+        // Only send one alert
+        if (this.state.speed >= speed && this.state.alertCount == 0) {
+            this.setState({alertCount: 1})
+            alert("Have you selected the right transport method? You're going a little fast!\n\nWe will stop tracking until a good speed is reached or a new transport method is selected.");
+        }
     }
 
     componentWillUnmount() {
@@ -32,8 +46,6 @@ export default class JourneyScreen extends Component {
     render() {
         const {navigation, route} = this.props;
         const maxLimit = 20;
-
-        console.log(route.params.stats.destination);
 
         return(
             <Container>
@@ -52,7 +64,7 @@ export default class JourneyScreen extends Component {
                 
 
                 <TransportMethod>
-                    <Ionicons name={route.params.transport} size={32} color={colours.white} />
+                    <Ionicons name={route.params.transport.icon} size={32} color={colours.white} />
                 </TransportMethod>
 
                 <JourneyStats style={{position: 'absolute', bottom: 0}}>
