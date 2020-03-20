@@ -5,26 +5,27 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 import colours from './Colours';
 
 export default function JourneyStats(props) {
+    let {journeyInfo} = props;
     return(
         <Container>
             <Stat>
-                <Ionicons name="md-stopwatch" size={25} />
+                <Ionicons name="md-stopwatch" size={22} />
                 <ValueContainer>
-                    <Value>30</Value>
+                    <Value>{journeyInfo.time}</Value>
                     <Scale>m</Scale>
                 </ValueContainer>
             </Stat>
             <Stat>
-                <FontAwesome name="leaf" size={25} />
+                <FontAwesome name="leaf" size={22} />
                 <ValueContainer>
-                    <Value>3</Value>
+                    <Value>{journeyInfo.points}</Value>
                     <Scale>pts</Scale>
                 </ValueContainer>
             </Stat>
             <Stat>
-                <MaterialCommunityIcons name="periodic-table-co2" size={25} />
+                <MaterialCommunityIcons name="periodic-table-co2" size={22} />
                 <ValueContainer>
-                    <Value>2.2</Value>
+                    <Value>{journeyInfo.co2}</Value>
                     <Scale>kg</Scale>
                 </ValueContainer>
             </Stat>
@@ -34,7 +35,7 @@ export default function JourneyStats(props) {
 
 const Container = styled.View`
     flex-direction: row;
-    height: 150px;
+    height: 135px;
     width: 100%;
     justify-content: center;
     position: absolute;

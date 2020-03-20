@@ -45,10 +45,10 @@ const Map = (props) => {
 
                             mapView.fitToCoordinates(result.coordinates, {
                                 edgePadding: {
-                                    right: (width / 10),
-                                    bottom: (height / 10),
-                                    left: (width / 10),
-                                    top: (height / 10),
+                                    right: (width / 8),
+                                    bottom: (height / 8),
+                                    left: (width / 8),
+                                    top: (height / 8),
                                 }
                             });
                         }}

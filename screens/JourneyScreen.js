@@ -23,7 +23,8 @@ export default class JourneyScreen extends Component {
             (position) => {
                 // Conver mps to kmh
                 let kmh = (position.coords.speed) * 3.6;
-
+                if (kmh < 0) kmh = 0;
+                
                 this.setState({speed: (kmh).toFixed(0)});
             }
         );

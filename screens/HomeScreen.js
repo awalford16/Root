@@ -16,8 +16,6 @@ export default class HomeScreen extends Component {
         super(props);
 
         this.state = {
-            selectedTransport: "WALKING",
-            transportIcon: "ios-walk",
             journeyReady: false,
             journeyInfo: {
                 location: "",
@@ -41,7 +39,6 @@ export default class HomeScreen extends Component {
             }
 
         }
-        this.handleTransportChange = this.handleTransportChange.bind(this);
     }
 
     handleTransportChange = (opt) => {
@@ -53,9 +50,23 @@ export default class HomeScreen extends Component {
     }
 
     updateJourney = (dest, time, dist, reg, end) => {
-        // Calculate stats
+        // Calculate co2 in kg
+        let co2_kg = dist;
+        switch(this.state.transportInfo.method) {
+            case "BICYCLING":
+                co2_kg *= 0.012;
+                break;
+            case "DRIVING":
+                co2_kg *= 0.287;
+                break;
+            default:
+                co2_kg *= 0.016;
+                break;
+        }
 
-        console.log(dest);
+        // Determine points from CO2
+        let score = 1 / co2_kg;
+
         this.setState({
             journeyReady: true,
             journeyInfo: {
@@ -63,7 +74,9 @@ export default class HomeScreen extends Component {
                 time: time,
                 dist: dist,
                 region: reg,
-                destination: end
+                destination: end,
+                co2: co2_kg.toFixed(1),
+                points: score.toFixed(0)
             }
         });
     }
@@ -79,10 +92,10 @@ export default class HomeScreen extends Component {
 
                 <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
 
-                <MapContainer transportMode={this.state.selectedTransport} updateJourney={this.updateJourney} />
+                <MapContainer transportMode={this.state.transportInfo.method} updateJourney={this.updateJourney} />
 
                 {
-                    this.state.journeyReady && <JourneyStats />
+                    this.state.journeyReady && <JourneyStats journeyInfo={this.state.journeyInfo} />
                 }
 
                 <DonateButton />
