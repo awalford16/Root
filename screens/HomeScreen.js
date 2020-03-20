@@ -66,6 +66,9 @@ export default class HomeScreen extends Component {
 
         // Determine points from CO2
         let score = 1 / co2_kg;
+        if (dist < 1) {
+            score *= (dist / 3);
+        }
 
         this.setState({
             journeyReady: true,
