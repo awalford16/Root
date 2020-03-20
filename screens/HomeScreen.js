@@ -8,6 +8,7 @@ import DonateButton from '../components/DonateButton';
 import MapContainer from '../components/MapContainer';
 import StartButton from '../components/StartButton';
 import Destination from '../components/Destination';
+import JourneyStats from '../components/JourneyStats';
 
 
 export default class HomeScreen extends Component {
@@ -79,6 +80,10 @@ export default class HomeScreen extends Component {
                 <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
 
                 <MapContainer transportMode={this.state.selectedTransport} updateJourney={this.updateJourney} />
+
+                {
+                    this.state.journeyReady && <JourneyStats />
+                }
 
                 <DonateButton />
 

@@ -19,7 +19,7 @@ const Map = (props) => {
                 initialRegion={props.region}
                 showsUserLocation={true}
                 followsUserLocation={true}
-                showsMyLocationButton={true}
+                showsMyLocationButton={false}
                 ref={m => mapView = m}>
 
                 {props.destination.latitude ? 
