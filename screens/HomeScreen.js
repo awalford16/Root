@@ -9,6 +9,8 @@ import MapContainer from '../components/MapContainer';
 import StartButton from '../components/StartButton';
 import Destination from '../components/Destination';
 import JourneyStats from '../components/JourneyStats';
+import TitleBar from '../components/TitleBar';
+import DonateScreen from './DonateScreen';
 
 
 export default class HomeScreen extends Component {
@@ -16,6 +18,7 @@ export default class HomeScreen extends Component {
         super(props);
 
         this.state = {
+            modalVisible: false, 
             journeyReady: false,
             journeyInfo: {
                 location: "",
@@ -38,7 +41,6 @@ export default class HomeScreen extends Component {
                 icon: "ios-walk",
                 maxSpeed: 5
             }
-
         }
     }
 
@@ -68,9 +70,9 @@ export default class HomeScreen extends Component {
         }
 
         // Determine points from CO2
-        let score = 1.6 / co2_kg;
+        let score = 2 / co2_kg;
         if (dist < 1 && dist > 0) {
-            score *= (dist / 3);
+            score *= (dist / 2);
         }
 
         // Convert mins to hours
@@ -95,15 +97,15 @@ export default class HomeScreen extends Component {
             }
         });
     }
+
+    setModalVisible = (visible) => {
+        this.setState({modalVisible: visible})
+    }
     
     render() {
         return (
             <Container>
-                <Titlebar>
-                    <Icon name="user-circle" size={32} color={colours.white} style={{ position:'absolute', left: 30, top: 60 }} />
-                    <Title>Root</Title>
-                    <Icon name="leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
-                </Titlebar>
+                <TitleBar showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
 
                 <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
 
@@ -114,6 +116,7 @@ export default class HomeScreen extends Component {
                 }
 
                 {/* { !this.state.journeyReady && <DonateButton /> } */}
+                <DonateScreen showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
             </Container>
         )
     }
@@ -124,16 +127,3 @@ const Container = styled.View`
     flex: 1;
 `;
 
-const Titlebar = styled.View`
-    background-color: ${colours.green};
-    width: 100%;
-    height: 120px;
-    padding-top: 60px;
-`;
-
-const Title = styled.Text`
-    color: ${colours.white};
-    font-weight: 600;
-    font-size: 30px;
-    text-align: center;
-`;

@@ -24,7 +24,7 @@ export default class TransportOptions extends Component {
                 {
                     transportList.map((option, index) => (
                         <TrasnportContainer key={index} onPress={this.handleChange.bind(this, option)}>
-                            <Ionicons name={option.icon} size={40} color={option.title == this.props.selected ? colours.green : colours.grey} />
+                            <Ionicons name={option.icon} size={35} color={option.title == this.props.selected ? colours.green : colours.grey} />
                         </TrasnportContainer>
                     ))
                 }
@@ -35,7 +35,7 @@ export default class TransportOptions extends Component {
 
 const Container = styled.View`
     flex-direction: row;
-    flex: 0.12;
+    flex: 0.10;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-evenly;

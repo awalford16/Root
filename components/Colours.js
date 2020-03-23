@@ -1,6 +1,6 @@
 export default {
     blue: '#00a896',
-    background: '#efefef',
+    background: '#fff',
     green2: '#2F683D',
     green: '#339966',
     white: '#FFFFFF',

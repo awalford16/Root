@@ -11,7 +11,7 @@ export default function StartButton(props) {
         <GoButton
             onPress={() => navigation.navigate('Journey', { stats: props.stats, transport: props.transport })}
         >
-            <Icon name="arrow-circle-right" size={60} 
+            <Icon name="arrow-circle-right" size={65} 
                 color={colours.green} 
                 style={{alignSelf: 'center', padding: 3 }} 
             />
@@ -20,7 +20,7 @@ export default function StartButton(props) {
 }
 
 const GoButton = styled.TouchableOpacity`
-    margin: 20px;
+    margin: 5px;
     flex-direction: row;
     border-radius: 30px;
 `;

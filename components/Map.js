@@ -65,7 +65,7 @@ export default Map;
 const Container = styled.View`
     flex: 1;
     position: relative;
-    top: -30px;
+    top: -20px;
     z-index: -1;
     border: 1px solid ${colours.green};
 `;

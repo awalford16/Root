@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Keyboard, TouchableWithoutFeedback, TouchableOpacity, Text } from 'react-native';
+import { Keyboard, TouchableWithoutFeedback, TouchableOpacity, Modal } from 'react-native';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 import colours from '../components/Colours';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -28,52 +29,60 @@ export default class DonateScreen extends Component {
 
     render() {
         return (
-            <DismissKeyboard>
-                <Container>
-                    <ModalBar />
+            <GestureRecognizer onSwipeDown={() => this.props.showModal(false)}>
+                <Modal animationType="slide" transparent={true} visible={this.props.modalVisible}>
+                    <DismissKeyboard>
+                        <Container>
+                            <ModalBar hideModal={this.props.showModal} />
+                            <DonateStats>
+                                <Icon name="gbp" size={20} color={colours.white} />
+                                <DonateAmount ref="textInput" value={this.state.donationAmount} keyboardType="numeric" 
+                                maxLength={3} 
+                                onChangeText={value => this.updateDonation(value)} /> 
+                                <Decimal>.00</Decimal>
+                            </DonateStats>
 
-                    <DonateStats>
-                        <Icon name="gbp" size={20} />
-                        <DonateAmount ref="textInput" value={this.state.donationAmount} keyboardType="numeric" 
-                        maxLength={3} 
-                        onChangeText={value => this.updateDonation(value)} /> 
-                        <Decimal>.00</Decimal>
-                    </DonateStats>
+                            <PointsRemaining>Points Remaining: 12</PointsRemaining>
 
-                    <PointsRemaining>Points Remaining: 12</PointsRemaining>
+                            <CharitySlider>
+                                <CharityTitle>
+                                    <CharityLogo source={{uri:'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'}} />
+                                    <Title>Charity Name</Title>
+                                </CharityTitle>
+                                
+                                <CharityInfo>This is a charity.</CharityInfo>
+                            </CharitySlider>
 
-                    <CharitySlider>
-                        <CharityTitle>
-                            <CharityLogo source={{uri:'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'}} />
-                            <Title>Charity Name</Title>
-                        </CharityTitle>
-                        
-                        <CharityInfo>This is a charity.</CharityInfo>
-                    </CharitySlider>
+                            <SubmitDonation>
+                                <DonationText>Donate  £{this.state.donationAmount}</DonationText>
+                            </SubmitDonation>
 
-                    <SubmitDonation style={{position: 'absolute', bottom: 85}}>
-                        <DonationText>Donate  £{this.state.donationAmount}</DonationText>
-                    </SubmitDonation>
-                    
-                </Container>
-            </DismissKeyboard>
+                        </Container>
+                    </DismissKeyboard>
+                </Modal>
+            </GestureRecognizer>
         )
     }
 }
 
 const Container = styled.View`
-    background-color: ${colours.background};
-    flex: 1;
+    background-color: ${colours.green};
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 420px;
+    align-self: center;
 `;
 
 const CharitySlider = styled.View`
     flex: 0.4;
-    border: 2px solid ${colours.green};
-    width: 90%;
-    border-radius: 40px;
+    border: 2px solid ${colours.white};
+    background-color: ${colours.white};
+    width: 95%;
+    border-radius: 10px;
     padding: 8%;
     align-self: center;
-    margin: 2%;
+    justify-content: center;
 `;
 
 const CharityTitle = styled.View`
@@ -88,51 +97,53 @@ const CharityLogo = styled.Image`
 `;
 
 const Title = styled.Text`
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 700;
     margin: 3%;
     align-self: flex-end;
 `;
 
 const CharityInfo = styled.Text`
-    font-size: 17px;
+    font-size: 15px;
 `;
 
 const DonateStats = styled.View`
-    flex: 0.16;
+    flex: 0.3;
     align-items: center;
     flex-direction: row;
     justify-content: center;
 `;
 
 const DonateAmount = styled.TextInput`
+    color: ${colours.white};
     font-weight: 600;
-    font-size: 50px;
+    font-size: 40px;
     padding: 2%;
     text-align: center;
 `;
 
 const PointsRemaining = styled.Text`
-    color: ${colours.grey};
+    color: ${colours.unselected};
     text-align: center;
     font-size: 18px;
     margin: 2%;
 `;
 
 const Decimal = styled.Text`
-    font-size: 30px;
+    font-size: 20px;
+    color: ${colours.white};
 `;
 
 const SubmitDonation = styled.TouchableOpacity`
-    background-color: ${colours.green};
-    align-self: center;
-    border-radius: 50px;
-    padding: 8%;
+    background-color: ${colours.white};
+    align-self: flex-end;
+    border-radius: 20px;
+    padding: 15px;
     align-items: center;
-    height: 40px;
+    margin: 15px;
 `;
 
 const DonationText = styled.Text`
-    color: ${colours.white};
-    font-size: 30px;
+    color: ${colours.green};
+    font-size: 20px;
 `;

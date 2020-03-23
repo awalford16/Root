@@ -38,13 +38,15 @@ export default function JourneyStats(props) {
 
 const Container = styled.View`
     flex-direction: row;
-    height: 135px;
-    width: 100%;
+    height: 100px;
+    width: 90%;
+    align-self: center;
     justify-content: center;
     position: absolute;
-    bottom: 2px;
+    bottom: 60px;
     background-color: ${colours.white};
     border: 1px solid ${colours.green};
+    border-radius: 80px;
 `;
 
 const Stat = styled.View`

@@ -72,19 +72,19 @@ const Container = styled.View``;
 const DestinationInput = styled.TextInput`
     background-color: ${colours.white};
     align-self: center;
-    padding: 15px;
-    font-size: 20px;
+    padding: 10px;
+    font-size: 15px;
     color: ${colours.black};
     border: 1px solid ${colours.grey};
-    width: 90%;
-    font-weight: 500;
+    width: 80%;
+    font-weight: 600;
 `;
 
 const DestinationResults = styled.ScrollView`
-    width: 90%;
+    width: 80%;
     align-self: center;
     position: absolute;
-    top: 50px;
+    top: 40px;
     background-color: ${colours.white};
     border: 1px solid ${colours.grey};
     max-height: 300px;
