@@ -46,14 +46,7 @@ export default class MapContainer extends Component {
     }
 
     componentDidMount() {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                const acc = position.coords.accuracy;
-                this.calcDelta(lat, lon);
-            }
-        )
+        this.getLocation();
     }
 
     updateDestination = (name, lat, lng) => {
@@ -66,14 +59,36 @@ export default class MapContainer extends Component {
         });
     }
 
+    getLocation = () => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                const acc = position.coords.accuracy;
+                this.calcDelta(lat, lon);
+            }
+        )
+    }
+
+    updateLocation = () => {
+        navigator.geolocation.watchPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                const acc = position.coords.accuracy;
+                this.calcDelta(lat, lon);
+            }
+        )
+    }
+
     render() {
         return(
-            <Container>
+            <Container mapSize={this.state.journeyReady}>
                 <Destination location={this.state.region} setDestination={this.updateDestination} />
                 { this.state.region.latitude ? <Map 
                     region={this.state.region} 
                     destination={this.state.destination} 
-                    transportMode={this.props.transportMode} 
+                    transportMode={this.props.transportMode}
                     updateJourney={this.props.updateJourney}
                 /> : null }
             </Container>
@@ -82,5 +97,5 @@ export default class MapContainer extends Component {
 }
 
 const Container = styled.View`
-    flex: 0.75;
+    flex: 1;
 `;

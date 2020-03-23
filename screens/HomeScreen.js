@@ -89,25 +89,19 @@ export default class HomeScreen extends Component {
             <Container>
                 <Titlebar>
                     <Icon name="user-circle" size={32} color={colours.white} style={{ position:'absolute', left: 30, top: 60 }} />
-                    <Title>GreenPath</Title>
+                    <Title>Root</Title>
                     <Icon name="leaf" size={32} color={colours.white} style={{ position:'absolute', right: 30, top: 60 }} />
                 </Titlebar>
 
                 <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
 
-                <MapContainer transportMode={this.state.transportInfo.method} updateJourney={this.updateJourney} />
+                <MapContainer journeyReady={this.state.journeyReady} transportMode={this.state.transportInfo.method} updateJourney={this.updateJourney} />
 
                 {
-                    this.state.journeyReady && <JourneyStats journeyInfo={this.state.journeyInfo} />
+                    this.state.journeyReady && <JourneyStats journeyInfo={this.state.journeyInfo} transport={this.state.transportInfo} />
                 }
 
-                <DonateButton />
-
-                <StartButton 
-                    journeyReady={this.state.journeyReady} 
-                    stats={this.state.journeyInfo} 
-                    transport={this.state.transportInfo}
-                    />
+                {/* { !this.state.journeyReady && <DonateButton /> } */}
             </Container>
         )
     }

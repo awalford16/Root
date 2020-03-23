@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import colours from './Colours';
+import StartButton from './StartButton';
 
 export default function JourneyStats(props) {
     let {journeyInfo} = props;
@@ -29,6 +30,8 @@ export default function JourneyStats(props) {
                     <Scale>kg</Scale>
                 </ValueContainer>
             </Stat>
+
+            <StartButton stats={props.journeyInfo} transport={props.transport} />
         </Container>
     );
 }
@@ -39,21 +42,20 @@ const Container = styled.View`
     width: 100%;
     justify-content: center;
     position: absolute;
-    bottom: 130px;
+    bottom: 2px;
+    background-color: ${colours.white};
 `;
 
 const Stat = styled.View`
     flex: 1;
-    background-color: ${colours.white};
-    margin: 15px;
+    margin: 5px;
     padding: 20px;
-    border: 1px solid ${colours.green};
     align-items: center;
 `;
 
 const ValueContainer = styled.View`
     flex-direction: row;
-    margin: 15px;
+    margin: 5px;
     width: 100%;
     justify-content: center;
 `;

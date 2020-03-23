@@ -2,7 +2,7 @@ export const transportList = [
     {
         title: "WALKING",
         icon: "ios-walk",
-        speed: 5,
+        speed: 8,
         points: 8
     },
     {

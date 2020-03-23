@@ -8,13 +8,11 @@ import colours from './Colours';
 export default function StartButton(props) {
     const navigation = useNavigation();
     return(
-        <GoButton style={{ position:'absolute', bottom: 20, right: 5, backgroundColor: !props.journeyReady ? colours.background : colours.green }} 
-            disabled={!props.journeyReady} 
+        <GoButton
             onPress={() => navigation.navigate('Journey', { stats: props.stats, transport: props.transport })}
         >
-            { props.journeyReady ? <GoText>START</GoText> : null }
-            <Icon name="arrow-circle-right" size={55} 
-                color={props.journeyReady ? colours.white : colours.grey} 
+            <Icon name="arrow-circle-right" size={60} 
+                color={colours.green} 
                 style={{alignSelf: 'center', padding: 3 }} 
             />
         </GoButton>
@@ -25,11 +23,4 @@ const GoButton = styled.TouchableOpacity`
     margin: 20px;
     flex-direction: row;
     border-radius: 30px;
-`;
-
-const GoText = styled.Text`
-    color: ${colours.white};
-    align-self: center;
-    padding: 15px;
-    font-size: 25px;
 `;

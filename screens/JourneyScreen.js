@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import {View, Text} from 'react-native'; 
+import {Dimensions, Text} from 'react-native'; 
 
 import colours from '../components/Colours';
 import { RouteProp } from '@react-navigation/core';
@@ -10,6 +10,7 @@ import Map from '../components/Map';
 export default class JourneyScreen extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             speed: 0,
             alertCount: 0,
@@ -22,7 +23,7 @@ export default class JourneyScreen extends Component {
         this.watchPosition = navigator.geolocation.watchPosition(
             (position) => {
                 // Conver mps to kmh
-                let kmh = (position.coords.speed) * 3.6;
+                let kmh = position.coords.speed * 3.86;
                 if (kmh < 0) kmh = 0;
                 
                 this.setState({speed: (kmh).toFixed(0)});
