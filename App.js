@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './screens/HomeScreen';
 import DonateScreen from './screens/DonateScreen';
 import JourneyScreen from './screens/JourneyScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const RootStack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -20,7 +21,7 @@ const Ops = {
 function ModalStackScreen() {
   return(
     <ModalStack.Navigator>
-      <ModalStack.Screen name="Donate" component={DonateScreen} options={{headerShown: false}}/>
+      <ModalStack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
     </ModalStack.Navigator>
   );
 }

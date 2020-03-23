@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {StatusBar} from 'react-native';
 
 import colours from '../components/Colours';
 import TransportOptions from '../components/TransportOptions';
@@ -105,6 +106,10 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <Container>
+                <StatusBar  
+                    barStyle = "dark-content"   
+                    hidden = {false}
+                /> 
                 <TitleBar showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
 
                 <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />

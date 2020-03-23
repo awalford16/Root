@@ -9,19 +9,21 @@ export default function TitleBar(props) {
     const navigation = useNavigation();
     return(
         <Container>
-            <Title>Root</Title>
+            <Logo source={require('../assets/logo.png')} />
             <UserInfo>
                 <Stats onPress={() => props.showModal(!props.modalVisible)}>
                     <UserPoints>
                         <MaterialCommunityIcons name="periodic-table-co2" size={25} color={colours.red} />
-                        <Points style={{color: colours.red}}>0</Points>
+                        <Points style={{color: colours.red}}>14</Points>
                     </UserPoints>
                     <UserPoints>
                         <FontAwesome name="leaf" size={25} color={colours.green} />
-                        <Points>0</Points>
+                        <Points>43</Points>
                     </UserPoints>
                 </Stats>
-                <FontAwesome name="user-circle-o" size={40} color={colours.green} />
+                <Profile onPress={() => navigation.navigate('Modal')}>
+                    <FontAwesome name="user-circle-o" size={40} color={colours.green} />
+                </Profile>
             </UserInfo>
         </Container>
 
@@ -32,10 +34,17 @@ export default function TitleBar(props) {
 const Container = styled.View`
     background-color: ${colours.white};
     width: 100%;
-    height: 100px;
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
+    margin-top: 50px;
+`;
+
+const Logo = styled.Image`
+    width: 150px;
+    height: 45px;
+    position: absolute;
+    left: 15px;
 `;
 
 const Stats = styled.TouchableOpacity`
@@ -62,10 +71,4 @@ const Points = styled.Text`
     font-style: italic
 `;
 
-const Title = styled.Text`
-    color: ${colours.green};
-    font-weight: 600;
-    font-size: 50px;
-    position: absolute;
-    left: 15px;
-`;
+const Profile = styled.TouchableOpacity``;
