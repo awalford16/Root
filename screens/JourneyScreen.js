@@ -75,7 +75,7 @@ export default class JourneyScreen extends Component {
 
                         <ValueContainer>
                             <Value>{route.params.stats.time}</Value>
-                            <Scale>m</Scale>
+                            <Scale>{route.params.stats.timeMeasure}</Scale>
                         </ValueContainer>
                     </StatBox>
 

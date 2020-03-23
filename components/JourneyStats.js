@@ -13,7 +13,7 @@ export default function JourneyStats(props) {
                 <Ionicons name="md-stopwatch" size={22} />
                 <ValueContainer>
                     <Value>{journeyInfo.time}</Value>
-                    <Scale>m</Scale>
+                    <Scale>{journeyInfo.timeMeasure}</Scale>
                 </ValueContainer>
             </Stat>
             <Stat>
@@ -44,11 +44,12 @@ const Container = styled.View`
     position: absolute;
     bottom: 2px;
     background-color: ${colours.white};
+    border: 1px solid ${colours.green};
 `;
 
 const Stat = styled.View`
     flex: 1;
-    margin: 5px;
+    margin: 2px;
     padding: 20px;
     align-items: center;
 `;
@@ -58,11 +59,12 @@ const ValueContainer = styled.View`
     margin: 5px;
     width: 100%;
     justify-content: center;
+    flex-wrap: nowrap;
 `;
 
 const Value = styled.Text`
     font-weight: 600;
-    font-size: 30px;
+    font-size: 25px;
 `;
 
 const Scale = styled.Text`

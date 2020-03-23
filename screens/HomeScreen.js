@@ -20,6 +20,7 @@ export default class HomeScreen extends Component {
             journeyInfo: {
                 location: "",
                 time: 0,
+                timeMeasure: 'm',
                 dist: 0,
                 points: 0,
                 co2: 0,
@@ -50,6 +51,8 @@ export default class HomeScreen extends Component {
     }
 
     updateJourney = (dest, time, dist, reg, end) => {
+        if (dist == 0) return;
+        
         // Calculate co2 in kg
         let co2_kg = dist;
         switch(this.state.transportInfo.method) {
@@ -65,9 +68,17 @@ export default class HomeScreen extends Component {
         }
 
         // Determine points from CO2
-        let score = 1 / co2_kg;
-        if (dist < 1) {
+        let score = 1.6 / co2_kg;
+        if (dist < 1 && dist > 0) {
             score *= (dist / 3);
+        }
+
+        // Convert mins to hours
+        let measure = 'm'
+        if (time >= 60) {
+            time /= 60;
+            time = time.toFixed(0);
+            measure = 'hrs';
         }
 
         this.setState({
@@ -75,6 +86,7 @@ export default class HomeScreen extends Component {
             journeyInfo: {
                 location: dest,
                 time: time,
+                timeMeasure: measure,
                 dist: dist,
                 region: reg,
                 destination: end,
