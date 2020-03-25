@@ -14,11 +14,11 @@ export default function TitleBar(props) {
                 <Stats onPress={() => props.showModal(!props.modalVisible)}>
                     <UserPoints>
                         <MaterialCommunityIcons name="periodic-table-co2" size={25} color={colours.red} />
-                        <Points style={{color: colours.red}}>14</Points>
+                        <Points style={{color: colours.red}}>{props.userData.co2}</Points>
                     </UserPoints>
                     <UserPoints>
                         <FontAwesome name="leaf" size={25} color={colours.green} />
-                        <Points>43</Points>
+                        <Points>{props.userData.points}</Points>
                     </UserPoints>
                 </Stats>
                 <Profile onPress={() => navigation.navigate('Modal')}>

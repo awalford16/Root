@@ -17,8 +17,8 @@ export default class DonateScreen extends Component {
         this.state = {
             canDonate: true,
             donationAmount: "1",
-            initialPoints: 14,
-            remainingPoints: -1,
+            initialPoints: props.userData.points,
+            remainingPoints: props.userData.points - 500,
             selectedCharity: 0
         }
     }

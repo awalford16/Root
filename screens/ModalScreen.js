@@ -20,7 +20,7 @@ export default function ModalScreen(props) {
                 <DismissKeyboard>
                     <Container>
                         <ModalBar hideModal={props.showModal} />
-                        <DonateScreen />
+                        <DonateScreen userData={props.userData} />
                     </Container>
                 </DismissKeyboard>
             </Modal>

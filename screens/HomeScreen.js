@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {StatusBar, Text} from 'react-native';
+import {StatusBar} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 import colours from '../components/Colours';
 import TransportOptions from '../components/TransportOptions';
@@ -13,12 +14,15 @@ import JourneyStats from '../components/JourneyStats';
 import TitleBar from '../components/TitleBar';
 import DonateScreen from './DonateScreen';
 import ModalScreen from './ModalScreen';
-import { FontAwesome } from '@expo/vector-icons';
+import firebase from '../components/Firebase';
 
 export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
 
+        this.ref = firebase.firestore().collection("users").doc('g5xSv3XXna3USooAQAhM');
+
+        this.unsubscribe = null;
         this.state = {
             modalVisible: false, 
             journeyReady: false,
@@ -42,8 +46,42 @@ export default class HomeScreen extends Component {
                 method: "WALKING",
                 icon: "ios-walk",
                 maxSpeed: 5
-            }
+            },
+            userData: {
+                points: 0,
+                co2: 0
+            },
+            isRefreshing: true
         }
+    }
+
+    componentDidMount() {
+        // Update user info whenever firebase data changes
+        this.unsubscribe = this.ref.onSnapshot(this.onUserUpdate);
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    onUserUpdate = (doc) => {
+        let user = {};
+        
+        const {name, points, co2} = doc.data();
+        user = {
+            name: name,
+            points: points,
+            co2: co2
+        }
+
+        this.setState({
+            userData: user,
+            isRefreshing: false
+        });
+    }
+
+    componentDidCatch(error, info) {
+        console.log(error, info.componentStack);
     }
 
     handleTransportChange = (opt) => {
@@ -111,7 +149,7 @@ export default class HomeScreen extends Component {
                     barStyle = "dark-content"   
                     hidden = {false}
                 /> 
-                <TitleBar showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
+                <TitleBar showModal={this.setModalVisible} modalVisible={this.state.modalVisible} userData={this.state.userData} />
 
                 <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
 
@@ -122,7 +160,7 @@ export default class HomeScreen extends Component {
                 }
 
                 {/* { !this.state.journeyReady && <DonateButton /> } */}
-                <ModalScreen showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
+                <ModalScreen userData={this.state.userData} showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
 
                 {!this.state.modalVisible && !this.state.journeyReady && 
                     <DonationToggle onPress={() => this.setModalVisible(true)}>
