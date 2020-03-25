@@ -69,29 +69,47 @@ export default class DonateScreen extends Component {
 
                 <PointsRemaining>Points Remaining: {this.state.remainingPoints}</PointsRemaining>
 
-                <Swiper loop={false} showsPagination={false} showsButtons={false} onIndexChanged={(index) => this.setState({selectedCharity: index})}>
-                    {
-                    charityList.map((charity, index) => (
-                        <CharitySlider key={index}>
-                            <CharityTitle>
-                                <CharityLogo source={{uri: charity.logo}} />
-                                <Title>{charity.name}</Title>
-                            </CharityTitle>
-                            
-                            <CharityInfo>{charity.description}</CharityInfo>
-                        </CharitySlider>
 
-                    ))
-                    }
-                </Swiper>
+                <CharityWrapper>
+                    <ChangeCharity disabled={this.state.selectedCharity==0} 
+                        onPress={() => this.refs.charities.scrollBy(-1)}>
+                        <FontAwesome name="chevron-circle-left" size={30} 
+                            color={this.state.selectedCharity == 0 ? colours.unselected : colours.white} />
+                    </ChangeCharity>
+
+                    <Swiper ref="charities" loop={false} 
+                        showsPagination={false} showsButtons={false} 
+                        onIndexChanged={(index) => this.setState({selectedCharity: index})}>
+                        {
+                        charityList.map((charity, index) => (
+                            <CharitySlider key={index}>
+                                <CharityTitle>
+                                    <CharityLogo source={{uri: charity.logo}} />
+                                    <Title>{charity.name}</Title>
+                                </CharityTitle>
+                                
+                                <CharityInfo>{charity.description}</CharityInfo>
+                            </CharitySlider>
+
+                        ))
+                        }
+                    </Swiper>
+
+                    <ChangeCharity disabled={this.state.selectedCharity==2} 
+                        onPress={() => this.refs.charities.scrollBy(1)}>
+                        <FontAwesome name="chevron-circle-right" size={30} 
+                            color={this.state.selectedCharity == 2 ? colours.unselected : colours.white} />
+                    </ChangeCharity>
+                </CharityWrapper>
+                
 
                 <BottomBar>
                     <PageIndicator>
-                        <FontAwesome name="minus" size={25} style={{margin: 3}}
+                        <FontAwesome name="minus" size={20} style={{margin: 3}}
                             color={this.state.selectedCharity === 0 ? colours.white : colours.unselected} />
-                        <FontAwesome name="minus" size={25} style={{margin: 3}}
+                        <FontAwesome name="minus" size={20} style={{margin: 3}}
                             color={this.state.selectedCharity === 1 ? colours.white : colours.unselected} />
-                        <FontAwesome name="minus" size={25} style={{margin: 3}}
+                        <FontAwesome name="minus" size={20} style={{margin: 3}}
                             color={this.state.selectedCharity === 2 ? colours.white : colours.unselected} />
                     </PageIndicator>
 
@@ -108,8 +126,15 @@ const Container = styled.View`
     flex: 1;
 `;
 
+const CharityWrapper = styled.View`
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    padding: 10px;
+`;
+
 const CharitySlider = styled.View`
-    flex: 0.5;
     border: 2px solid ${colours.white};
     background-color: ${colours.white};
     width: 95%;
@@ -132,13 +157,17 @@ const CharityLogo = styled.Image`
 `;
 
 const Title = styled.Text`
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     margin-left: 10px;
 `;
 
 const CharityInfo = styled.Text`
-    font-size: 15px;
+    font-size: 14px;
+`;
+
+const ChangeCharity = styled.TouchableOpacity`
+
 `;
 
 const DonateStats = styled.View`
