@@ -43,7 +43,7 @@ const Container = styled.View`
     align-self: center;
     justify-content: center;
     position: absolute;
-    bottom: 60px;
+    bottom: 50px;
     background-color: ${colours.white};
     border: 1px solid ${colours.green};
     border-radius: 80px;

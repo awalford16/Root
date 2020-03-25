@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {StatusBar} from 'react-native';
+import {StatusBar, Text} from 'react-native';
 
 import colours from '../components/Colours';
 import TransportOptions from '../components/TransportOptions';
@@ -12,7 +12,8 @@ import Destination from '../components/Destination';
 import JourneyStats from '../components/JourneyStats';
 import TitleBar from '../components/TitleBar';
 import DonateScreen from './DonateScreen';
-
+import ModalScreen from './ModalScreen';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -121,7 +122,14 @@ export default class HomeScreen extends Component {
                 }
 
                 {/* { !this.state.journeyReady && <DonateButton /> } */}
-                <DonateScreen showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
+                <ModalScreen showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
+
+                {!this.state.modalVisible && !this.state.journeyReady && 
+                    <DonationToggle onPress={() => this.setModalVisible(true)}>
+                        <ToggleText>Donate</ToggleText>
+                        <FontAwesome name="handshake-o" size={20} color={colours.white} />
+                    </DonationToggle>
+                }
             </Container>
         )
     }
@@ -132,3 +140,22 @@ const Container = styled.View`
     flex: 1;
 `;
 
+const DonationToggle = styled.TouchableOpacity`
+    flex: 0.2;
+    position: absolute;
+    bottom: 40px;
+    width: 35%;
+    height: 50px;
+    background-color: ${colours.green};
+    align-self: center;
+    padding: 15px;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 50px;
+    justify-content: space-evenly;
+`;
+
+const ToggleText = styled.Text`
+    color: ${colours.white};
+    font-size: 20px;
+`;

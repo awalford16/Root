@@ -1,86 +1,120 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Keyboard, TouchableWithoutFeedback, TouchableOpacity, Modal } from 'react-native';
-import GestureRecognizer from 'react-native-swipe-gestures';
+import Swiper from 'react-native-swiper';
+import { FontAwesome } from '@expo/vector-icons';
 
 import colours from '../components/Colours';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalBar from '../components/ModalBar';
+import { colors } from 'react-native-elements';
+import {charityList} from '../data/charities';
 
-const DismissKeyboard = ({children}) => (
-    <TouchableWithoutFeedback style={{'flex': 1}} onPress={() => Keyboard.dismiss()}>
-        {children}
-    </TouchableWithoutFeedback>
-)
 
 export default class DonateScreen extends Component {
     constructor(props){
         super(props);
+
         this.state = {
-            donationAmount: "1"
+            canDonate: true,
+            donationAmount: "1",
+            initialPoints: 14,
+            remainingPoints: -1,
+            selectedCharity: 0
         }
     }
 
+    componentDidMount() {
+        // Get the total points
+
+        // Convert points to money value
+
+        // Update donation
+        this.updateDonation("1");
+    }
+
     updateDonation = (amount) => {
+        let remaining = this.moneyToPoints(amount);
+        let validDonation = this.validateDonation(amount, remaining);
+
         this.setState({
-            donationAmount: amount.replace(/[^0-9]/g, '')
+            canDonate: validDonation,
+            donationAmount: amount.replace(/[^0-9]/g, ''),
+            remainingPoints: remaining
         });
+    }
+
+    validateDonation = (amount, remaining) => {
+        if (remaining < 0 || amount == 0) {
+            return false
+        }
+
+        return true
+    }
+
+    moneyToPoints = (amount) => {
+        let used = amount * 500;
+        return this.state.initialPoints - used;
     }
 
     render() {
         return (
-            <GestureRecognizer onSwipeDown={() => this.props.showModal(false)}>
-                <Modal animationType="slide" transparent={true} visible={this.props.modalVisible}>
-                    <DismissKeyboard>
-                        <Container>
-                            <ModalBar hideModal={this.props.showModal} />
-                            <DonateStats>
-                                <Icon name="gbp" size={20} color={colours.white} />
-                                <DonateAmount ref="textInput" value={this.state.donationAmount} keyboardType="numeric" 
-                                maxLength={3} 
-                                onChangeText={value => this.updateDonation(value)} /> 
-                                <Decimal>.00</Decimal>
-                            </DonateStats>
+            <Container>
+                <DonateStats>
+                    <Icon name="gbp" size={20} color={colours.white} />
+                    <DonateAmount ref="textInput" value={this.state.donationAmount} keyboardType="numeric" 
+                    maxLength={3} 
+                    onChangeText={value => this.updateDonation(value)} /> 
+                    <Decimal>.00</Decimal>
+                </DonateStats>
 
-                            <PointsRemaining>Points Remaining: 12</PointsRemaining>
+                <PointsRemaining>Points Remaining: {this.state.remainingPoints}</PointsRemaining>
 
-                            <CharitySlider>
-                                <CharityTitle>
-                                    <CharityLogo source={{uri:'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'}} />
-                                    <Title>Charity Name</Title>
-                                </CharityTitle>
-                                
-                                <CharityInfo>This is a charity.</CharityInfo>
-                            </CharitySlider>
+                <Swiper loop={false} showsPagination={false} showsButtons={false} onIndexChanged={(index) => this.setState({selectedCharity: index})}>
+                    {
+                    charityList.map((charity, index) => (
+                        <CharitySlider key={index}>
+                            <CharityTitle>
+                                <CharityLogo source={{uri: charity.logo}} />
+                                <Title>{charity.name}</Title>
+                            </CharityTitle>
+                            
+                            <CharityInfo>{charity.description}</CharityInfo>
+                        </CharitySlider>
 
-                            <SubmitDonation>
-                                <DonationText>Donate  £{this.state.donationAmount}</DonationText>
-                            </SubmitDonation>
+                    ))
+                    }
+                </Swiper>
 
-                        </Container>
-                    </DismissKeyboard>
-                </Modal>
-            </GestureRecognizer>
+                <BottomBar>
+                    <PageIndicator>
+                        <FontAwesome name="minus" size={25} style={{margin: 3}}
+                            color={this.state.selectedCharity === 0 ? colours.white : colours.unselected} />
+                        <FontAwesome name="minus" size={25} style={{margin: 3}}
+                            color={this.state.selectedCharity === 1 ? colours.white : colours.unselected} />
+                        <FontAwesome name="minus" size={25} style={{margin: 3}}
+                            color={this.state.selectedCharity === 2 ? colours.white : colours.unselected} />
+                    </PageIndicator>
+
+                    <SubmitDonation canDonate={this.state.canDonate} disabled={!this.state.canDonate}>
+                        <DonationText>Donate  £{this.state.donationAmount}</DonationText>
+                    </SubmitDonation>
+                </BottomBar>
+            </Container>
         )
     }
 }
 
 const Container = styled.View`
-    background-color: ${colours.green};
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    height: 420px;
-    align-self: center;
+    flex: 1;
 `;
 
 const CharitySlider = styled.View`
-    flex: 0.4;
+    flex: 0.5;
     border: 2px solid ${colours.white};
     background-color: ${colours.white};
     width: 95%;
     border-radius: 10px;
-    padding: 8%;
+    padding: 20px;
     align-self: center;
     justify-content: center;
 `;
@@ -88,19 +122,19 @@ const CharitySlider = styled.View`
 const CharityTitle = styled.View`
     flex-direction: row;
     align-items: center;
-    margin-bottom: 10%;
+    margin-bottom: 15px;
 `;
 
 const CharityLogo = styled.Image`
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
+    resize-mode: contain;
 `;
 
 const Title = styled.Text`
     font-size: 20px;
     font-weight: 700;
-    margin: 3%;
-    align-self: flex-end;
+    margin-left: 10px;
 `;
 
 const CharityInfo = styled.Text`
@@ -134,16 +168,30 @@ const Decimal = styled.Text`
     color: ${colours.white};
 `;
 
+const BottomBar = styled.View`
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 60px;
+    align-items: center;
+`;
+
+const PageIndicator = styled.View`
+    flex-direction: row;
+    padding: 15px;
+`;
+
 const SubmitDonation = styled.TouchableOpacity`
-    background-color: ${colours.white};
+    background-color: ${props => props.canDonate ? colours.white : colours.unselected};
     align-self: flex-end;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 15px;
     align-items: center;
-    margin: 15px;
 `;
 
 const DonationText = styled.Text`
     color: ${colours.green};
     font-size: 20px;
+    font-weight: 600;
 `;
