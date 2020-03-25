@@ -2,7 +2,7 @@ export default {
     blue: '#00a896',
     background: '#fff',
     green2: '#2F683D',
-    green: '#339966',
+    green: '#007A59',
     white: '#FFFFFF',
     red: '#eb3838',
     grey: '#bbb',
@@ -12,3 +12,4 @@ export default {
   
   // 339966
   // 5d916b
+  // 007A59
