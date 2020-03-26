@@ -6,28 +6,33 @@ import { FontAwesome } from '@expo/vector-icons';
 import colours from '../components/Colours';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalBar from '../components/ModalBar';
-import { colors } from 'react-native-elements';
 import {charityList} from '../data/charities';
-
+import firebase from '../components/Firebase';
+import { Alert } from 'react-native';
+import DonateConfirm from '../components/DonateConfirm';
 
 export default class DonateScreen extends Component {
     constructor(props){
         super(props);
+
+        this.donateRef = firebase.firestore().collection('donations');
+        this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY')
 
         this.state = {
             canDonate: true,
             donationAmount: "1",
             initialPoints: props.userData.points,
             remainingPoints: props.userData.points - 500,
-            selectedCharity: 0
+            selectedCharity: 0,
+            showConfirmation: false,
+            recentDonation: {
+                amount: 0,
+                charity: ''
+            }
         }
     }
 
     componentDidMount() {
-        // Get the total points
-
-        // Convert points to money value
-
         // Update donation
         this.updateDonation("1");
     }
@@ -52,25 +57,75 @@ export default class DonateScreen extends Component {
     }
 
     moneyToPoints = (amount) => {
-        let used = amount * 500;
+        let used = amount * 625;
         return this.state.initialPoints - used;
+    }
+
+    submitDonation = () => {
+        if (this.state.canDonate) {
+            this.donateRef.add({
+                username: this.props.userData.name,
+                amount: this.state.donationAmount,
+                charity: charityList[this.state.selectedCharity].name,
+            }).then((docRef) => {
+                this.setState({
+                    selectedCharity: 0,
+                    donationAmount: "1",
+                    initialPoints: this.state.remainingPoints,
+                    remainingPoints: this.state.remainingPoints - 625,
+                    recentDonation: {
+                        amount: this.state.donationAmount,
+                        charity: charityList[this.state.selectedCharity].name
+                    }
+                });
+                this.updateUser();
+
+                this.toggleConfirmation(true);
+
+                this.validateDonation(1, this.state.remainingPoints);
+
+            }).catch((error) => {
+                console.log("Error finding document: ", error);
+            })
+        } else {
+            Alert.alert('Donation is invalid.')
+        }
+    }
+
+    updateUser = () => {
+        this.userRef.set({
+            name: this.props.userData.name,
+            points: this.state.initialPoints,
+            co2: this.props.userData.co2
+        }).catch((error) => {
+            console.log("Error updating document: ", error);
+        })
+    }
+
+    toggleConfirmation = (toggle) => {
+        this.setState({
+            showConfirmation: toggle
+        });
     }
 
     render() {
         return (
             <Container>
-                <DonateStats>
+                { !this.state.showConfirmation && <DonateStats>
                     <Icon name="gbp" size={20} color={colours.white} />
                     <DonateAmount ref="textInput" value={this.state.donationAmount} keyboardType="numeric" 
                     maxLength={3} 
                     onChangeText={value => this.updateDonation(value)} /> 
                     <Decimal>.00</Decimal>
                 </DonateStats>
+                }
 
-                <PointsRemaining>Points Remaining: {this.state.remainingPoints}</PointsRemaining>
+                { !this.state.showConfirmation &&
+                    <PointsRemaining>Points Remaining: {this.state.remainingPoints}</PointsRemaining>
+                }
 
 
-                <CharityWrapper>
+                { !this.state.showConfirmation && <CharityWrapper>
                     <ChangeCharity disabled={this.state.selectedCharity==0} 
                         onPress={() => this.refs.charities.scrollBy(-1)}>
                         <FontAwesome name="chevron-circle-left" size={30} 
@@ -100,10 +155,10 @@ export default class DonateScreen extends Component {
                         <FontAwesome name="chevron-circle-right" size={30} 
                             color={this.state.selectedCharity == 2 ? colours.unselected : colours.white} />
                     </ChangeCharity>
-                </CharityWrapper>
+                </CharityWrapper> }
                 
 
-                <BottomBar>
+                { !this.state.showConfirmation && <BottomBar>
                     <PageIndicator>
                         <FontAwesome name="minus" size={20} style={{margin: 3}}
                             color={this.state.selectedCharity === 0 ? colours.white : colours.unselected} />
@@ -113,10 +168,17 @@ export default class DonateScreen extends Component {
                             color={this.state.selectedCharity === 2 ? colours.white : colours.unselected} />
                     </PageIndicator>
 
-                    <SubmitDonation canDonate={this.state.canDonate} disabled={!this.state.canDonate}>
+                    <SubmitDonation onPress={() => this.submitDonation()} 
+                        canDonate={this.state.canDonate} disabled={!this.state.canDonate}>
                         <DonationText>Donate  £{this.state.donationAmount}</DonationText>
                     </SubmitDonation>
                 </BottomBar>
+                }
+
+                {this.state.showConfirmation && 
+                    <DonateConfirm remaining={this.state.initialPoints} donateInfo={this.state.recentDonation}
+                        toggleView={this.toggleConfirmation} />
+                }
             </Container>
         )
     }

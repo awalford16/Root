@@ -20,7 +20,7 @@ export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.ref = firebase.firestore().collection("users").doc('g5xSv3XXna3USooAQAhM');
+        this.ref = firebase.firestore().collection("users").doc('DbxeQr62SuBFdNnVBLZY');
 
         this.unsubscribe = null;
         this.state = {

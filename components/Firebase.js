@@ -4,14 +4,13 @@ import {FIREBASE_KEY} from '../key';
 
 const config = {
     apiKey: {FIREBASE_KEY},
-    authDomain: "react-spa-ea178.firebaseapp.com",
-    databaseURL: "https://react-spa-ea178.firebaseio.com",
-    projectId: "react-spa-ea178",
-    storageBucket: "react-spa-ea178.appspot.com",
-    messagingSenderId: "247084751253",
-    appId: "1:247084751253:web:6cbb9a8551ce31aea43e9c",
-    measurementId: "G-8VB5RM2QLK"
-};
+    authDomain: "greenpath-269612.firebaseapp.com",
+    databaseURL: "https://greenpath-269612.firebaseio.com",
+    projectId: "greenpath-269612",
+    storageBucket: "greenpath-269612.appspot.com",
+    messagingSenderId: "870337715085",
+    appId: "1:870337715085:web:e6f61602923ee1ee61bbc4"
+  };
 
 firebase.initializeApp(config);
 
