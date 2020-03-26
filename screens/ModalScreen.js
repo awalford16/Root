@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 import { Keyboard, TouchableWithoutFeedback, TouchableOpacity, Modal } from 'react-native';
 import GestureRecognizer from 'react-native-swipe-gestures';
@@ -13,19 +13,33 @@ const DismissKeyboard = ({children}) => (
     </TouchableWithoutFeedback>
 );
 
-export default function ModalScreen(props) {
-    return(
-        <GestureRecognizer onSwipeDown={() => props.showModal(false)}>
-            <Modal animationType="slide" transparent={true} visible={props.modalVisible}>
-                <DismissKeyboard>
-                    <Container>
-                        <ModalBar hideModal={props.showModal} />
-                        <DonateScreen userData={props.userData} />
-                    </Container>
-                </DismissKeyboard>
-            </Modal>
-        </GestureRecognizer>
-    );
+export default class ModalScreen extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            view: 1
+        }
+    }
+
+    changeView = (view) => {
+        this.setState({view: view})
+    }
+
+    render() {
+        return(
+            <GestureRecognizer onSwipeDown={() => this.props.showModal(false)}>
+                <Modal animationType="slide" transparent={true} visible={this.props.modalVisible}>
+                    <DismissKeyboard>
+                        <Container>
+                            <ModalBar hideModal={this.props.showModal} selectView={this.changeView} openView={this.state.view} />
+                            {this.state.view == 1 && <DonateScreen userData={this.props.userData} />}
+                        </Container>
+                    </DismissKeyboard>
+                </Modal>
+            </GestureRecognizer>
+        );
+    } 
 }
 
 const Container = styled.View`
