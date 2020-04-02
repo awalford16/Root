@@ -93,10 +93,8 @@ export default class DonateScreen extends Component {
     }
 
     updateUser = () => {
-        this.userRef.set({
-            name: this.props.userData.name,
-            points: this.state.initialPoints,
-            co2: this.props.userData.co2
+        this.userRef.update({
+            points: this.state.initialPoints
         }).catch((error) => {
             console.log("Error updating document: ", error);
         })

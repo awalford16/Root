@@ -14,7 +14,7 @@ export default function TitleBar(props) {
                 <Stats onPress={() => props.showModal(!props.modalVisible)}>
                     <UserPoints>
                         <MaterialCommunityIcons name="periodic-table-co2" size={25} color={colours.red} />
-                        <Points style={{color: colours.red}}>{props.userData.co2}</Points>
+                        <Points style={{color: colours.red}}>{(props.userData.co2).toFixed(1)}</Points>
                     </UserPoints>
                     <UserPoints>
                         <FontAwesome name="leaf" size={25} color={colours.green} />

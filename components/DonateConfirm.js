@@ -7,7 +7,7 @@ export default function DonateConfirm(props) {
     return(
         <Container>
             <Title>Thank You!</Title>
-            <ConfirmText style={{fontStyle: 'italic'}}>Your donations mean a great deal so keep on walking!</ConfirmText>
+            <ConfirmText style={{fontStyle: 'italic'}}>Your donations mean a great deal so keep on trekking!</ConfirmText>
             <ConfirmText>Donation Amount: £{props.donateInfo.amount}</ConfirmText>
             <ConfirmText>Charity: {props.donateInfo.charity}</ConfirmText>
             <ConfirmText>Points Remaining: {props.remaining}</ConfirmText>

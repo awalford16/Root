@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {StatusBar} from 'react-native';
+import {StatusBar, Text} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 import colours from '../components/Colours';
@@ -53,9 +53,13 @@ export default class HomeScreen extends Component {
             },
             isRefreshing: true
         }
+
+        this.baseState = this.state;
     }
 
     componentDidMount() {
+        this.setState(this.baseState);
+
         // Update user info whenever firebase data changes
         this.unsubscribe = this.ref.onSnapshot(this.onUserUpdate);
     }
@@ -132,7 +136,7 @@ export default class HomeScreen extends Component {
                 dist: dist,
                 region: reg,
                 destination: end,
-                co2: co2_kg.toFixed(1),
+                co2: co2_kg,
                 points: score.toFixed(0)
             }
         });
@@ -140,6 +144,12 @@ export default class HomeScreen extends Component {
 
     setModalVisible = (visible) => {
         this.setState({modalVisible: visible})
+    }
+
+    resetState = () => {
+        this.setState({
+            journeyReady: false
+        });
     }
     
     render() {
@@ -167,6 +177,12 @@ export default class HomeScreen extends Component {
                         <ToggleText>Donate</ToggleText>
                         <FontAwesome name="handshake-o" size={20} color={colours.white} />
                     </DonationToggle>
+                }
+
+                {   this.state.journeyReady && 
+                    <FontAwesome name="times-circle" 
+                        onPress={() => this.resetState()} size={32} color={colours.grey}
+                        style={{position: 'absolute', bottom: 150, alignSelf: 'center'}} />
                 }
             </Container>
         )
@@ -196,4 +212,13 @@ const DonationToggle = styled.TouchableOpacity`
 const ToggleText = styled.Text`
     color: ${colours.white};
     font-size: 20px;
+`;
+
+const CancelButton = styled.TouchableOpacity`
+    position: absolute;
+    bottom: 150px;
+    background-color: ${colours.white};
+    padding: 10px;
+    align-self: center;
+    border-radius: 30px;
 `;

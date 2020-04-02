@@ -8,6 +8,7 @@ import HomeScreen from './screens/HomeScreen';
 import DonateScreen from './screens/DonateScreen';
 import JourneyScreen from './screens/JourneyScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import JourneyEndScreen from './screens/JourneyEndScreen';
 
 const RootStack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -31,6 +32,7 @@ function MainStackScreen() {
     <MainStack.Navigator>
       <MainStack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}  />
       <MainStack.Screen name="Journey" component={JourneyScreen} options={{headerShown: false}} />
+      <MainStack.Screen name="JourneyEnd" component={JourneyEndScreen} options={{headerShown: false}} />
     </MainStack.Navigator>
   );
 }

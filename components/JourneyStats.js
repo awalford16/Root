@@ -26,7 +26,7 @@ export default function JourneyStats(props) {
             <Stat>
                 <MaterialCommunityIcons name="periodic-table-co2" size={22} />
                 <ValueContainer>
-                    <Value>{journeyInfo.co2}</Value>
+                    <Value>{(journeyInfo.co2).toFixed(1)}</Value>
                     <Scale>kg</Scale>
                 </ValueContainer>
             </Stat>

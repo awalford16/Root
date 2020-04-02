@@ -40,7 +40,7 @@ export default class Destination extends Component {
                             {console.log(locationResults)}
                             <SearchBar>
                                 <DestinationInput 
-                                    placeholder="Where to Today?"
+                                    placeholder="Where Are You Going Today?"
                                     onChangeText={handleTextChange} 
                                     value={inputValue}
                                     onFocus={() => this.setState({displayList: true})} />
