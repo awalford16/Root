@@ -9,11 +9,10 @@ import {PLACES_KEY} from '../key.js';
 import LocationItem from './LocationItem';
 
 export default class Destination extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            displayList: true
+            displayList: false
         }
     }
 
