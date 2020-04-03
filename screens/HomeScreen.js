@@ -50,11 +50,8 @@ export default class HomeScreen extends Component {
             userData: {
                 points: 0,
                 co2: 0
-            },
-            isRefreshing: true
+            }
         }
-
-        this.baseState = this.state;
     }
 
     componentDidMount() {

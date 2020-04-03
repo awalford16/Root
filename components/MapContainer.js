@@ -71,7 +71,7 @@ export default class MapContainer extends Component {
     }
 
     updateLocation = () => {
-        navigator.geolocation.watchPosition(
+        this.watchPosition = navigator.geolocation.watchPosition(
             (position) => {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
@@ -79,6 +79,10 @@ export default class MapContainer extends Component {
                 this.calcDelta(lat, lon);
             }
         )
+    }
+
+    componentWillUnmount() {
+        navigator.geolocation.clearWatch(this.watchPosition);
     }
 
     render() {
@@ -90,6 +94,7 @@ export default class MapContainer extends Component {
                     destination={this.state.destination} 
                     transportMode={this.props.transportMode}
                     updateJourney={this.props.updateJourney}
+                    showDirections={this.props.journeyReady}
                 /> : null }
             </Container>
         );

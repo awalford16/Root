@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {GoogleAutoComplete} from 'react-native-google-autocomplete';
 import styled from 'styled-components';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {FontAwesome} from 'react-native-vector-icons';
 
 import colours from './Colours';
-import { View, ActivityIndicator, Button } from 'react-native';
+import { View, ActivityIndicator, Button, Text } from 'react-native';
 import {PLACES_KEY} from '../key.js';
 import LocationItem from './LocationItem';
 
@@ -13,8 +13,7 @@ export default class Destination extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayList: true,
-            selectedDestination: ""
+            displayList: true
         }
     }
 
@@ -40,6 +39,7 @@ export default class Destination extends Component {
                             {console.log(locationResults)}
                             <SearchBar>
                                 <DestinationInput 
+                                    clearButtonMode="always"
                                     placeholder="Where Are You Going Today?"
                                     onChangeText={handleTextChange} 
                                     value={inputValue}
@@ -57,6 +57,9 @@ export default class Destination extends Component {
                                         hideList={this.hideSuggestions}
                                     />
                                 ))}
+                                <HideList onPress={() => this.hideSuggestions()}>
+                                    <FontAwesome name="angle-up" size={20} color={colours.grey} />
+                                </HideList>
                             </DestinationResults> : null }
                         </React.Fragment>
                     )}
@@ -92,4 +95,18 @@ const DestinationResults = styled.ScrollView`
 
 const SearchBar = styled.View`
     align-content: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+`;
+
+const ClearButton = styled.TouchableOpacity`
+    position: absolute;
+    right: 50px;
+    align-self: center;
+`;
+
+const HideList = styled.TouchableOpacity`
+    width: 100%;
+    background-color: ${colours.white};
+    align-items: center;
 `;

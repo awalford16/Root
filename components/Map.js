@@ -36,9 +36,6 @@ const Map = (props) => {
                         mode={props.transportMode}
                         waypoints={[props.destination]}
                         onReady={result => {
-                            console.log(`${(result.distance).toFixed(1)}km`);
-                            console.log(`${Math.ceil(result.duration)}min`);
-
                             props.updateJourney && props.updateJourney(props.destination.name, 
                                 (result.duration).toFixed(0), 
                                 (result.distance).toFixed(1), props.region, props.destination);
@@ -53,7 +50,7 @@ const Map = (props) => {
                             });
                         }}
                     /> 
-                : <Text>No Map Available.</Text>}
+                : null }
             </MapView>
         </Container>
             
