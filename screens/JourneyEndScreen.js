@@ -20,7 +20,8 @@ export default class JourneyEndScreen extends Component {
             co2: 0,
             transport: props.route.params.transport,
             userPoints: 0,
-            userCO2: 0
+            userCO2: 0,
+            userImg: require('../assets/user-picture.png')
         }
     }
 
@@ -39,7 +40,8 @@ export default class JourneyEndScreen extends Component {
             let data = doc.data();
             this.setState({
                 userPoints: data.points,
-                userCO2: data.co2
+                userCO2: data.co2,
+                userImg: data.image
             })
         })
     }
@@ -49,11 +51,11 @@ export default class JourneyEndScreen extends Component {
         return(
             <Container>
                 <TitleBar>
-                    <FontAwesome name="user-circle-o" size={50} color={colours.white} />
+                    <UserImage source={this.state.userImg} />
                     <Title>Journey Complete!</Title>
                 </TitleBar>
 
-                <Ionicons name="ios-walk" size={60} color={colours.white}
+                <Ionicons name={route.params.transport} size={60} color={colours.white}
                     style={{alignSelf: 'center'}} />
 
                 <StatsWrapper>
@@ -106,6 +108,14 @@ const TitleBar = styled.View`
     height: 180px;
     align-items: center;
     margin-bottom: 30px;
+`;
+
+const UserImage = styled.Image`
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    resize-mode: contain;
+    margin: 10px;
 `;
 
 const Title = styled.Text`

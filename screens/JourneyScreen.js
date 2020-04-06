@@ -35,6 +35,24 @@ export default class JourneyScreen extends Component {
         // determine how many kilometers/point
         let pointsPerM = this.props.route.params.stats.points / (this.props.route.params.stats.dist * 1000);
 
+        this._watchLocation();
+    }
+
+    componentDidUpdate() {
+        let speed = this.props.route.params.transport.maxSpeed;
+
+        // Only send one alert
+        if (this.state.speed >= speed && this.state.alertCount == 0) {
+            this.setState({alertCount: 1})
+            alert("Have you selected the right transport method? You're going a little fast!\n\nWe will stop tracking until a good speed is reached or a new transport method is selected.");
+        }
+    }
+
+    componentWillUnmount() {
+        navigator.geolocation.clearWatch(this.watchPosition);
+    }
+
+    _watchLocation = () => {
         this.watchPosition = navigator.geolocation.watchPosition(
             (position) => {
                 // Conver mps to kmh
@@ -51,16 +69,22 @@ export default class JourneyScreen extends Component {
                     longitude: this.props.route.params.stats.destination.longitude
                 });
 
+                alert(dist);
+
                 // Calculate CO2 from previous
                 let co2 = 0;
+                let delta = 0;
                 if (!currentPos == this.state.prevPos) {
-                    let delta = this._getDistance(currentPos, this.state.prevPos);
+                    delta = this._getDistance(currentPos, this.state.prevPos);
                     co2 = this._getCO2(delta / 1000);
                 }
 
-                // Calculate points earnt
-                let currentPoints = (this.props.route.params.stats.points - (pointsPerM * dist)).toFixed(0)
-                if (currentPoints < 0) currentPoints = 0;
+                // Calculate points earnt if the user has moved
+                let currentPoints = 0;
+                if (delta > 0) {
+                    currentPoints = (this.props.route.params.stats.points - (pointsPerM * dist)).toFixed(0)
+                    if (currentPoints < 0) currentPoints = 0;
+                }
                 
                 // Update state
                 this.setState({
@@ -71,29 +95,15 @@ export default class JourneyScreen extends Component {
                 });
 
                 // End the journey if the user is within 100 meters of destination
-                if (dist < 0.1) {
+                if (dist < 0.5) {
                     this.onEndJourney();
                 }
             }, 
             (error) => {
                 alert(error);
             }, 
-            {enableHighAccuracy: true}
+            {distanceFilter: 0, timeout: 250, maximumAge: 10}
         );
-    }
-
-    componentDidUpdate() {
-        let speed = this.props.route.params.transport.maxSpeed;
-
-        // Only send one alert
-        if (this.state.speed >= speed && this.state.alertCount == 0) {
-            this.setState({alertCount: 1})
-            alert("Have you selected the right transport method? You're going a little fast!\n\nWe will stop tracking until a good speed is reached or a new transport method is selected.");
-        }
-    }
-
-    componentWillUnmount() {
-        navigator.geolocation.clearWatch(this.watchPosition);
     }
 
     _getDistance = (start, end) => {
@@ -140,7 +150,7 @@ export default class JourneyScreen extends Component {
                 date: new Date(),
                 user: user.data().name
             }).then((doc) => {
-                this.props.navigation.navigate('JourneyEnd', {docId: doc.id, tansport: this.props.route.params.transport.icon});
+                this.props.navigation.navigate('JourneyEnd', {docId: doc.id, transport: this.props.route.params.transport.icon});
             })
         }).catch((error) => {
             alert("Sorry, we were unable to log your journey.");
