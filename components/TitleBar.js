@@ -22,7 +22,7 @@ export default function TitleBar(props) {
                     </UserPoints>
                 </Stats>
                 <Profile onPress={() => navigation.navigate('Modal')}>
-                    <FontAwesome name="user-circle-o" size={40} color={colours.green} />
+                    <ProfileImage source={props.userData.img} />
                 </Profile>
             </UserInfo>
         </Container>
@@ -72,3 +72,10 @@ const Points = styled.Text`
 `;
 
 const Profile = styled.TouchableOpacity``;
+
+const ProfileImage = styled.Image`
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    resize-mode: contain;
+`;

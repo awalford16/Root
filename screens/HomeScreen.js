@@ -49,7 +49,8 @@ export default class HomeScreen extends Component {
             },
             userData: {
                 points: 0,
-                co2: 0
+                co2: 0,
+                img: require('../assets/user-picture.png')
             }
         }
     }
@@ -68,11 +69,12 @@ export default class HomeScreen extends Component {
     onUserUpdate = (doc) => {
         let user = {};
         
-        const {name, points, co2} = doc.data();
+        const {name, points, co2, image} = doc.data();
         user = {
             name: name,
             points: points,
-            co2: co2
+            co2: co2,
+            img: image
         }
 
         this.setState({
