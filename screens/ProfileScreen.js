@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button, ActivityIndicator} from 'react-native';
+import {Button, ActivityIndicator, Text} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -103,7 +103,9 @@ export default class ProfileScreen extends Component {
 
                     <Wrapper>
                         <UserImage source={this.state.uimg} />
-                        <Button title="Change" onPress={() => this._pickImage()} />
+                        <ChangeImage title="Change" onPress={() => this._pickImage()}>
+                            <Text>Change</Text>
+                        </ChangeImage>
                     </Wrapper>
     
                     <Wrapper>
@@ -160,10 +162,20 @@ const ProfileInfo = styled.View`
 `;
 
 const UserImage = styled.Image`
-    width: 65px;
-    height: 65px;
+    width: 75px;
+    height: 75px;
     border-radius: 50px;
     resize-mode: contain;
+`;
+
+const ChangeImage = styled.TouchableOpacity`
+    background-color: ${colours.white};
+    position: relative;
+    top: -30px;
+    width: 100%;
+    align-items: center;
+    height: 30px;
+    opacity: 0.7;
 `;
 
 const Stats = styled.View`
