@@ -11,6 +11,7 @@ import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { Component } from 'react';
 import firebase from '../components/Firebase';
+import { colors } from 'react-native-elements';
 
 export default class ProfileScreen extends Component {
     constructor(props) {
@@ -229,7 +230,7 @@ const SaveSettings = styled.TouchableOpacity`
     bottom: 100px;
     align-self: center;
     padding: 10px;
-    background-color: ${props => props.disabled ? colours.grey : colours.green};
+    background-color: ${props => props.disabled ? colours.white : colours.green};
     border-radius: 30px;
     width: 40%;
 `;
