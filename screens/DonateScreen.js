@@ -33,7 +33,7 @@ export default class DonateScreen extends Component {
     }
 
     componentDidMount() {
-        // Update donation
+        // Reset donation to £1 when component loads
         this.updateDonation("1");
     }
 
@@ -112,8 +112,7 @@ export default class DonateScreen extends Component {
                 { !this.state.showConfirmation && <DonateStats>
                     <Icon name="gbp" size={20} color={colours.white} />
                     <DonateAmount ref="textInput" value={this.state.donationAmount} keyboardType="numeric" 
-                    maxLength={3} 
-                    onChangeText={value => this.updateDonation(value)} /> 
+                        maxLength={3} onChangeText={value => this.updateDonation(value)} /> 
                     <Decimal>.00</Decimal>
                 </DonateStats>
                 }

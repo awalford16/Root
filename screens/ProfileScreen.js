@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button, ActivityIndicator, Text} from 'react-native';
+import {Button, ActivityIndicator, Text, Picker} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -25,7 +25,8 @@ export default class ProfileScreen extends Component {
             userCO2: 0,
             uname: "",
             uimg: require('../assets/user-picture.png'),
-            settingsChanged: false
+            settingsChanged: false,
+            mpg: "35"
         }
     }
 
@@ -73,6 +74,13 @@ export default class ProfileScreen extends Component {
         }
     }
 
+    updateSetting = (type, val) => {
+        this.setState({
+            [type]: val,
+            settingsChanged: true
+        });
+    }
+
     _saveChages = () => {
         this.setState({
             isLoading: true
@@ -80,10 +88,12 @@ export default class ProfileScreen extends Component {
 
         this.ref.update({
             name: this.state.uname,
-            image: this.state.uimg
+            image: this.state.uimg,
+            mpg: this.state.mpg
         }).then((doc) => {
             this.setState({
-                isLoading: false
+                isLoading: false,
+                settingsChanged: false
             })
         }).catch((error) => {
             console.log("Error updating profile: ", error);
@@ -99,7 +109,7 @@ export default class ProfileScreen extends Component {
             <Container>
                 <ProfileInfo>
                     <Wrapper>
-                        <FontAwesome name="times-circle" color={colours.grey} size={30} onPress={() => navigation.goBack()} /> 
+                        <FontAwesome name="times-circle" color={colours.white} size={30} onPress={() => navigation.goBack()} /> 
                     </Wrapper>
 
                     <Wrapper>
@@ -112,11 +122,11 @@ export default class ProfileScreen extends Component {
                     <Wrapper>
                         <Stats>
                             <UserPoints>
-                                <MaterialCommunityIcons name="periodic-table-co2" size={25} color={colours.red} />
-                                <Points style={{color: colours.red}}>{this.state.userCO2}</Points>
+                                <MaterialCommunityIcons name="periodic-table-co2" size={25} color={colours.white} />
+                                <Points>{this.state.userCO2}</Points>
                             </UserPoints>
                             <UserPoints>
-                                <FontAwesome name="leaf" size={25} color={colours.green} />
+                                <FontAwesome name="leaf" size={25} color={colours.white} />
                                 <Points>{this.state.userPoints}</Points>
                             </UserPoints>
                         </Stats>
@@ -125,14 +135,28 @@ export default class ProfileScreen extends Component {
     
                 { !this.state.isLoading ? <SettingsWrapper>
                     <Setting>
-                        <SettingValue value={this.state.uname} />
                         <SettingName>Username</SettingName>
+                        <SettingValue value={this.state.uname} 
+                            onChangeText={value => this.updateSetting('uname', value)}  />
                     </Setting>
 
                     <Setting>
-                        <SettingValue value="50" keyboardType="numeric" />
-                        <SettingName>Car MPG</SettingName>
+                        <SettingName>Car Settings</SettingName>
                     </Setting>
+
+                    <CarSettings>
+                        <Setting>
+                            <SettingValue value={this.state.mpg} keyboardType="numeric" 
+                                onChangeText={value => this.updateSetting('mpg', value)} />
+                            <SettingName>MPG</SettingName>
+                        </Setting>
+                        
+                        <Setting>
+                            <MaterialCommunityIcons style={{alignSelf: 'center'}} name="fuel" size={32} color={colours.white} />
+                            <SettingName>Type</SettingName>
+                        </Setting>
+                    </CarSettings>
+                    
                 </SettingsWrapper> : <ActivityIndicator /> }
 
                 <SaveSettings disabled={!this.state.settingsChanged} onPress={() => this._saveChages()}>
@@ -145,7 +169,7 @@ export default class ProfileScreen extends Component {
 
 const Container = styled.View`
     flex: 1;
-    background-color: ${colours.white};
+    background-color: ${colours.green};
 `;
 
 const Wrapper = styled.View`
@@ -172,11 +196,13 @@ const UserImage = styled.Image`
 const ChangeImage = styled.TouchableOpacity`
     background-color: ${colours.white};
     position: relative;
-    top: -30px;
-    width: 100%;
+    top: -15px;
+    width: 80%;
     align-items: center;
-    height: 30px;
-    opacity: 0.7;
+    height: 20px;
+    opacity: 0.8;
+    border-radius: 40px;
+    justify-content: center;
 `;
 
 const Stats = styled.View`
@@ -190,7 +216,7 @@ const UserPoints = styled.View`
 
 const Points = styled.Text`
     margin: 5px;
-    color: ${colours.green};
+    color: ${colours.white};
     font-size: 16px;
     font-weight: 600;
     font-style: italic
@@ -200,27 +226,35 @@ const SettingsWrapper = styled.View`
     flex: 0.5;
     width: 100%;
     justify-content: space-evenly;
-    flex-direction: row;
 `;
 
 const Setting = styled.View`
-    border: 1px solid ${colours.green};
-    width: 40%;
     height: 150px;
     border-radius: 90px;
-    align-items: center;
     padding: 20px;
     justify-content: space-evenly;
 `;
 
+const CarSettings = styled.View`
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: center;
+    align-items: flex-start;
+    position: relative;
+    top: -20px;
+`;
+
 const SettingValue = styled.TextInput`
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 600;
+    font-style: italic;
+    align-self: center;
+    color: ${colours.white};
 `;
 
 const SettingName = styled.Text`
-    color: ${colours.grey};
-    font-style: italic;
+    color: ${colours.unselected};
     font-size: 15px;
     font-weight: 800;
 `;
@@ -230,13 +264,13 @@ const SaveSettings = styled.TouchableOpacity`
     bottom: 100px;
     align-self: center;
     padding: 10px;
-    background-color: ${props => props.disabled ? colours.white : colours.green};
+    background-color: ${props => props.disabled ? colours.green : colours.white};
     border-radius: 30px;
     width: 40%;
 `;
 
 const Save = styled.Text`
-    color: ${colours.white};
+    color: ${colours.green};
     font-size: 20px;
     text-align: center;
 `;
