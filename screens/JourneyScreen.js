@@ -13,8 +13,8 @@ export default class JourneyScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.ref = firebase.firestore().collection('journeys');
         this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY');
+        this.ref = this.userRef.collection('journeys');
 
         this.state = {
             speed: 0,
@@ -131,6 +131,7 @@ export default class JourneyScreen extends Component {
 
     // Upload journey to firebase
     onEndJourney = () => {
+        // Only upload journey if user earns points
         this.userRef.get().then((user) => {
             let userPoints = user.data().points + this.state.pointsEarned;
             let userCO2 = user.data().co2 + this.state.currentCO2;

@@ -35,6 +35,7 @@
     "react-native-screens": "^2.0.0-beta.9",
     "react-native-sensors": "^5.4.1",
     "react-native-swipe-gestures": "^1.0.5",
+    "react-native-swipeout": "^2.3.6",
     "react-native-swiper": "^1.5.14",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.1.1",

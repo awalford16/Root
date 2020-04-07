@@ -12,8 +12,8 @@ export default class JourneyEndScreen extends Component {
         super(props);
 
         // Get journey from firebase database
-        this.ref = firebase.firestore().collection('journeys').doc(props.route.params.docId);
         this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY');
+        this.ref = this.userRef.collection('journeys').doc(props.route.params.docId);
 
         this.state = {
             points: 0,
@@ -26,6 +26,15 @@ export default class JourneyEndScreen extends Component {
     }
 
     componentDidMount() {
+        this.userRef.get().then((doc) => {
+            let data = doc.data();
+            this.setState({
+                userPoints: data.points,
+                userCO2: data.co2,
+                userImg: data.image
+            })
+        })
+
         // Get all details about journey and save to state
         this.ref.get().then((doc) => {
             let data = doc.data();
@@ -34,15 +43,6 @@ export default class JourneyEndScreen extends Component {
                 points: data.totalPoints,
                 co2: data.totalCO2
             });
-        })
-
-        this.userRef.get().then((doc) => {
-            let data = doc.data();
-            this.setState({
-                userPoints: data.points,
-                userCO2: data.co2,
-                userImg: data.image
-            })
         })
     }
 

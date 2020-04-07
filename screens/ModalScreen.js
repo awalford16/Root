@@ -6,6 +6,7 @@ import GestureRecognizer from 'react-native-swipe-gestures';
 import DonateScreen from './DonateScreen';
 import colours from '../components/Colours';
 import ModalBar from '../components/ModalBar';
+import HistoryScreen from './HistoryScreen';
 
 const DismissKeyboard = ({children}) => (
     <TouchableWithoutFeedback style={{'flex': 1}} onPress={() => Keyboard.dismiss()}>
@@ -34,6 +35,7 @@ export default class ModalScreen extends Component {
                         <Container>
                             <ModalBar hideModal={this.props.showModal} selectView={this.changeView} openView={this.state.view} />
                             {this.state.view == 1 && <DonateScreen userData={this.props.userData} />}
+                            {this.state.view == 2 && <HistoryScreen />}
                         </Container>
                     </DismissKeyboard>
                 </Modal>
