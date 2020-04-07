@@ -32,9 +32,6 @@ export default class JourneyScreen extends Component {
 
     // Initialise accelerometer
     componentDidMount() {
-        // determine how many kilometers/point
-        let pointsPerM = this.props.route.params.stats.points / (this.props.route.params.stats.dist * 1000);
-
         this._watchLocation();
     }
 
@@ -53,6 +50,9 @@ export default class JourneyScreen extends Component {
     }
 
     _watchLocation = () => {
+        // determine how many points earnt per meter
+        let pointsPerM = this.props.route.params.stats.points / (this.props.route.params.stats.dist * 1000);
+
         this.watchPosition = navigator.geolocation.watchPosition(
             (position) => {
                 // Conver mps to kmh
@@ -68,8 +68,6 @@ export default class JourneyScreen extends Component {
                     latitude: this.props.route.params.stats.destination.latitude,
                     longitude: this.props.route.params.stats.destination.longitude
                 });
-
-                alert(dist);
 
                 // Calculate CO2 from previous
                 let co2 = 0;
@@ -102,7 +100,7 @@ export default class JourneyScreen extends Component {
             (error) => {
                 alert(error);
             }, 
-            {distanceFilter: 0, timeout: 250, maximumAge: 10}
+            {enableHighAccuracy: true, distanceFilter: 0, timeout: 250, maximumAge: 10}
         );
     }
 
