@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ActivityIndicator, FlatList, SafeAreaView } from 'react-native';
 import Swipeout from 'react-native-swipeout';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import firebase from '../components/Firebase';
 import colours from '../components/Colours';
@@ -34,11 +34,12 @@ export default class HistoryScreen extends Component {
         let journeys = [];
 
         querySnapshot.forEach((doc) => {
-            const {date, totalPoints, journey, method} = doc.data();
+            const {date, totalPoints, totalCO2, journey, method} = doc.data();
             journeys.push({
                 id: doc.id,
                 date: date,
                 points: totalPoints,
+                co2: totalCO2,
                 destination: journey.name,
                 transport: method
             });
@@ -83,8 +84,20 @@ export default class HistoryScreen extends Component {
             return(
                 <Swipeout right={swipeBtns} backgroundColor="transparent">
                     <JourneyContainer>
-                        <JourneyPoints>{data.points}</JourneyPoints>
-                        <LocationName>{data.destination}</LocationName>
+                        <Ionicons name={data.transport} size={40} color={colours.white} />
+                        <InfoWrapper>
+                            <LocationName>{data.destination}</LocationName>
+                            <JourneyStats>
+                                <PointWrapper>
+                                    <FontAwesome name="leaf" size={15} color={colours.white} />
+                                    <Points>{data.points}</Points>
+                                </PointWrapper>
+                                <PointWrapper>
+                                    <MaterialCommunityIcons name="periodic-table-co2" size={15} color={colours.white} />
+                                    <Points>{data.co2}</Points>
+                                </PointWrapper>
+                            </JourneyStats>
+                        </InfoWrapper>
                     </JourneyContainer>
                 </Swipeout>
             )
@@ -115,7 +128,8 @@ const Container = styled.View`
 `;
 
 const JourneyContainer = styled.View`
-    border: 1px solid ${colours.white};
+    border-top-width: 1px;
+    border-top-color: ${colours.unselected};
     padding: 10px;
     width: 90%;
     align-self: center;
@@ -124,16 +138,37 @@ const JourneyContainer = styled.View`
     align-items: center;
 `;
 
-const JourneyPoints = styled.Text`
-    font-weight: 600;
-    color: ${colours.white};
-    font-size: 30px;
+const InfoWrapper = styled.View`
+    flex: 1;
+    align-self: flex-end;
+    margin-left: 20px;
+    position: absolute;
+    left: 40px;
+`;
+
+const JourneyStats = styled.View`
+    flex-direction: row;
+    flex: 1;
     margin: 5px;
+    align-items: center;
+`;
+
+const PointWrapper = styled.View`
+    flex-direction: row;
+    margin-left: 10px;
+    align-items: center;
+`;
+
+const Points = styled.Text`
+    color: ${colours.white};
+    margin: 2px;
+    font-size: 16px;
 `;
 
 const LocationName = styled.Text`
     color: ${colours.white};
     font-size: 18px;
+    font-weight: 600;
 `;
 
 const DeleteButton = styled.TouchableOpacity`

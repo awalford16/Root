@@ -18,7 +18,7 @@ export default class JourneyEndScreen extends Component {
         this.state = {
             points: 0,
             co2: 0,
-            transport: props.route.params.transport,
+            transport: 'ios-walk',
             userPoints: 0,
             userCO2: 0,
             userImg: require('../assets/user-picture.png')
@@ -41,7 +41,8 @@ export default class JourneyEndScreen extends Component {
 
             this.setState({
                 points: data.totalPoints,
-                co2: data.totalCO2
+                co2: data.totalCO2,
+                transport: data.method
             });
         })
     }
@@ -55,7 +56,7 @@ export default class JourneyEndScreen extends Component {
                     <Title>Journey Complete!</Title>
                 </TitleBar>
 
-                <Ionicons name={route.params.transport} size={60} color={colours.white}
+                <Ionicons name={this.state.transport} size={60} color={colours.white}
                     style={{alignSelf: 'center'}} />
 
                 <StatsWrapper>

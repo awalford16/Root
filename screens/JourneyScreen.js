@@ -145,11 +145,11 @@ export default class JourneyScreen extends Component {
                 journey: this.props.route.params.stats.destination,
                 totalPoints: this.state.pointsEarned,
                 totalCO2: this.state.currentCO2,
-                method: this.props.route.params.transport.method,
+                method: this.props.route.params.transport.icon,
                 date: new Date(),
                 user: user.data().name
             }).then((doc) => {
-                this.props.navigation.navigate('JourneyEnd', {docId: doc.id, transport: this.props.route.params.transport.icon});
+                this.props.navigation.navigate('JourneyEnd', {docId: doc.id});
             })
         }).catch((error) => {
             alert("Sorry, we were unable to log your journey.");
