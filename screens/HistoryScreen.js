@@ -7,35 +7,15 @@ import { FontAwesome } from '@expo/vector-icons';
 import firebase from '../components/Firebase';
 import colours from '../components/Colours';
 
-const DeleteJourney = () => (
-    <DeleteButton>
-        <FontAwesome name='trash-o' size={25} color={colours.white} />
-    </DeleteButton>
-)
-
-const Journey = ({data}) => {
-    const swipeBtns = [{
-        component: <DeleteJourney />,
-        backgroundColor: colours.green,
-        onPress: () => deleteJourney(data)
-    }];
-
-    return(
-        <Swipeout right={swipeBtns} backgroundColor="transparent" autoClose="true">
-            <JourneyContainer>
-                <JourneyPoints>{data.points}</JourneyPoints>
-                <LocationName>{data.destination}</LocationName>
-            </JourneyContainer>
-        </Swipeout>
-    )
-}
 
 export default class HistoryScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.ref = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY').collection('journeys').orderBy("date", "desc");
+        this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY');
+        this.ref = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY').collection('journeys');
 
+        this.unsubscribe = null;
         this.state = {
             journeys: [],
             isRefreshing: true
@@ -43,7 +23,11 @@ export default class HistoryScreen extends Component {
     }
 
     componentDidMount() {
-        this.ref.onSnapshot(this.onJourneyUpdate);
+        this.unsubscribe = this.ref.orderBy("date", "desc").onSnapshot(this.onJourneyUpdate);
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     onJourneyUpdate = (querySnapshot) => {
@@ -52,6 +36,7 @@ export default class HistoryScreen extends Component {
         querySnapshot.forEach((doc) => {
             const {date, totalPoints, journey, method} = doc.data();
             journeys.push({
+                id: doc.id,
                 date: date,
                 points: totalPoints,
                 destination: journey.name,
@@ -65,7 +50,46 @@ export default class HistoryScreen extends Component {
         })
     }
 
+    deleteJourney = (data) => {
+        this.setState({
+            isRefreshing: true
+        })
+
+        this.ref.doc(data.id).delete().then(() => {
+            this.setState({
+                isRefreshing: false
+            })
+
+            let decrement = firebase.firestore.FieldValue.increment(-(data.points));
+            this.userRef.update({
+                points: decrement
+            })
+        });
+    }
+
     render() {
+        const DeleteJourney = ({data}) => (
+            <DeleteButton onPress={() => this.deleteJourney(data)}>
+                <FontAwesome name='trash-o' size={25} color={colours.white} />
+            </DeleteButton>
+        )
+
+        const Journey = ({data}) => {
+            const swipeBtns = [{
+                component: <DeleteJourney  data={data} />,
+                backgroundColor: colours.green
+            }];
+        
+            return(
+                <Swipeout right={swipeBtns} backgroundColor="transparent">
+                    <JourneyContainer>
+                        <JourneyPoints>{data.points}</JourneyPoints>
+                        <LocationName>{data.destination}</LocationName>
+                    </JourneyContainer>
+                </Swipeout>
+            )
+        }
+
         return(
             <Container>
                 {this.state.journeys.length == 0 && !this.state.isRefreshing &&
@@ -78,7 +102,7 @@ export default class HistoryScreen extends Component {
                 <SafeAreaView>
                     {!this.state.isRefreshing ? <FlatList 
                         data={this.state.journeys}
-                        renderItem={({item}) => <Journey data={item} />}
+                        renderItem={({item}) => <Journey data={item} func={this.deleteJourney} />}
                         keyExtractor={item => item.date} /> : <ActivityIndicator />}
                 </SafeAreaView>
             </Container>
