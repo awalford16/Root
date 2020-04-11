@@ -15,8 +15,8 @@ export default class DonateScreen extends Component {
     constructor(props){
         super(props);
 
-        this.donateRef = firebase.firestore().collection('donations');
-        this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY')
+        this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY');
+        this.donateRef = this.userRef.collection('donations');
 
         this.state = {
             canDonate: true,
@@ -38,7 +38,10 @@ export default class DonateScreen extends Component {
     }
 
     updateDonation = (amount) => {
+        // convert money donation into points
         let remaining = this.moneyToPoints(amount);
+
+        // Determine if there are enough points available
         let validDonation = this.validateDonation(amount, remaining);
 
         this.setState({
@@ -64,7 +67,6 @@ export default class DonateScreen extends Component {
     submitDonation = () => {
         if (this.state.canDonate) {
             this.donateRef.add({
-                username: this.props.userData.name,
                 amount: this.state.donationAmount,
                 charity: charityList[this.state.selectedCharity].name,
             }).then((docRef) => {

@@ -22,35 +22,35 @@ const Map = (props) => {
                 showsMyLocationButton={false}
                 ref={m => mapView = m}>
 
-                {props.destination.latitude ? 
-                    <MapView.Marker coordinate={props.destination} /> 
-                : null}
+            {props.destination.latitude ? 
+                <MapView.Marker coordinate={props.destination} /> 
+            : null}
 
-                {props.destination.latitude ? 
-                    <MapViewDirections 
-                        origin={props.region} 
-                        destination={props.destination} 
-                        apikey={DIRECTIONS_KEY} 
-                        strokeWidth={3}
-                        strokeColor={colours.green}
-                        mode={props.transportMode}
-                        waypoints={[props.destination]}
-                        onReady={result => {
-                            props.updateJourney && props.updateJourney(props.destination.name, 
-                                (result.duration).toFixed(0), 
-                                (result.distance).toFixed(1), props.region, props.destination);
+            {props.destination.latitude ? 
+                <MapViewDirections 
+                    origin={props.region} 
+                    destination={props.destination} 
+                    apikey={DIRECTIONS_KEY} 
+                    strokeWidth={3}
+                    strokeColor={colours.green}
+                    mode={props.transportMode}
+                    waypoints={[props.destination]}
+                    onReady={result => {
+                        props.updateJourney && props.updateJourney(props.destination.name, 
+                            (result.duration).toFixed(0), 
+                            (result.distance).toFixed(1), props.region, props.destination);
 
-                            mapView.fitToCoordinates(result.coordinates, {
-                                edgePadding: {
-                                    right: (width / 8),
-                                    bottom: (height / 8),
-                                    left: (width / 8),
-                                    top: (height / 8),
-                                }
-                            });
-                        }}
-                    /> 
-                : null }
+                        mapView.fitToCoordinates(result.coordinates, {
+                            edgePadding: {
+                                right: (width / 8),
+                                bottom: (height / 8),
+                                left: (width / 8),
+                                top: (height / 8),
+                            }
+                        });
+                    }}
+                /> 
+            : null }
             </MapView>
         </Container>
             

@@ -36,10 +36,10 @@ export default class JourneyScreen extends Component {
     }
 
     componentDidUpdate() {
-        let speed = this.props.route.params.transport.maxSpeed;
+        let maxSpeed = this.props.route.params.transport.maxSpeed;
 
         // Only send one alert
-        if (this.state.speed >= speed && this.state.alertCount == 0) {
+        if (this.state.speed >= maxSpeed && this.state.alertCount == 0) {
             this.setState({alertCount: 1})
             alert("Have you selected the right transport method? You're going a little fast!\n\nWe will stop tracking until a good speed is reached or a new transport method is selected.");
         }
