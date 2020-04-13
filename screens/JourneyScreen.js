@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import {Dimensions, Text} from 'react-native'; 
 import {getDistance} from 'geolib';
+import * as Location from 'expo-location';
 
 import colours from '../components/Colours';
 import { RouteProp } from '@react-navigation/core';
@@ -100,7 +101,7 @@ export default class JourneyScreen extends Component {
             (error) => {
                 alert(error);
             }, 
-            {enableHighAccuracy: true, distanceFilter: 0, timeout: 250, maximumAge: 10}
+            {enableHighAccuracy: true, distanceFilter: 1, timeout: 250, maximumAge: 0}
         );
     }
 

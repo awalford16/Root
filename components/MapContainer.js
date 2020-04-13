@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import Geocoder from 'react-native-geocoding';
+import * as Permissions from 'expo-permissions';
+import {Text} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 import Destination from './Destination';
 import Map from './Map';
@@ -14,6 +16,7 @@ export default class MapContainer extends Component {
             isLoading: true, 
             location: null,
             errorMessage: null,
+            locationEnabled: true,
             region: {
                 latitude:null,
                 longitude:null,
@@ -45,8 +48,18 @@ export default class MapContainer extends Component {
         });
     }
 
+    getPermissions = async () => {
+        let {status} = await Permissions.askAsync(Permissions.LOCATION);
+
+        if (status !== 'granted') {
+            this.setState({locationEnabled: false});
+        } 
+    }
+
     componentDidMount() {
-        this.getLocation();
+        if (this.getPermissions()) {
+            this.getLocation();
+        }
     }
 
     updateDestination = (name, lat, lng) => {
@@ -89,13 +102,18 @@ export default class MapContainer extends Component {
         return(
             <Container mapSize={this.state.journeyReady}>
                 <Destination location={this.state.region} setDestination={this.updateDestination} />
-                { this.state.region.latitude ? <Map 
+                { this.state.region.latitude && this.state.locationEnabled ? <Map 
                     region={this.state.region} 
                     destination={this.state.destination} 
                     transportMode={this.props.transportMode}
                     updateJourney={this.props.updateJourney}
                     showDirections={this.props.journeyReady}
-                /> : null }
+                /> : 
+                <LocationError>
+                    <FontAwesome name="map-marker" size={50} color={colours.grey} />
+                    <Text>Please Enable Location Settings.</Text> 
+                </LocationError>
+                }
             </Container>
         );
     }
@@ -103,4 +121,10 @@ export default class MapContainer extends Component {
 
 const Container = styled.View`
     flex: 1;
+`;
+
+const LocationError = styled.View`
+    align-items: center;
+    justify-content: center;
+    flex: 0.6;
 `;
