@@ -56,19 +56,19 @@ export default class JourneyEndScreen extends Component {
                     <Title>Journey Complete!</Title>
                 </TitleBar>
 
-                <Ionicons name={this.state.transport} size={60} color={colours.white}
+                <Ionicons name={this.state.transport} size={40} color={colours.white}
                     style={{alignSelf: 'center'}} />
 
                 <StatsWrapper>
                     <StatBox>
-                        <FontAwesome name="leaf" size={32} color={colours.green} />
+                        <FontAwesome name="leaf" size={25} color={colours.green} />
                         <TotalWrapper>
                             <Total>{this.state.points}</Total>
                             <Scale>pts</Scale>
                         </TotalWrapper>
                     </StatBox>
                     <StatBox>
-                        <MaterialCommunityIcons name="periodic-table-co2" size={32} color={colours.red} />
+                        <MaterialCommunityIcons name="periodic-table-co2" size={25} color={colours.red} />
                         <TotalWrapper>
                             <Total style={{color: colours.red}}>{this.state.co2}</Total>
                             <Scale style={{color: colours.red}}>kg</Scale>
@@ -80,11 +80,11 @@ export default class JourneyEndScreen extends Component {
                     <TotalPoints>Total Statistics:</TotalPoints>
                     <TotalStatsWrapper>
                         <TotalScoreWrapper>
-                            <FontAwesome name="leaf" size={32} color={colours.white} />
+                            <FontAwesome name="leaf" size={20} color={colours.white} />
                             <TotalScore>{this.state.userPoints}</TotalScore>
                         </TotalScoreWrapper>
                         <TotalScoreWrapper>
-                            <MaterialCommunityIcons name="periodic-table-co2" size={32} color={colours.white} />
+                            <MaterialCommunityIcons name="periodic-table-co2" size={20} color={colours.white} />
                             <TotalScore>{this.state.userCO2}</TotalScore>
                         </TotalScoreWrapper>
                     </TotalStatsWrapper>
@@ -121,23 +121,24 @@ const UserImage = styled.Image`
 
 const Title = styled.Text`
     color: ${colours.white};
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 600;
     padding: 10px;
 `;
 
 const StatsWrapper = styled.View`
-    flex: 0.4;
-    width: 100%;
+    flex: 0.5;
+    width: 80%;
     justify-content: space-evenly;
     flex-wrap: wrap;
     flex-direction: row;
     margin-top: 40px;
+    align-self: center;
 `;
 
 const StatBox = styled.View`
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     align-items: center;
     background-color: ${colours.white};
     border-radius: 80px;
@@ -149,14 +150,14 @@ const TotalWrapper = styled.View`
 `;
 
 const Total = styled.Text`
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 600;
     text-align: center;
     color: ${colours.green};
 `;
 
 const Scale = styled.Text`
-    font-size: 15px;
+    font-size: 10px;
     align-self: flex-end;
     color: ${colours.green};
 `;
@@ -170,7 +171,7 @@ const Overall = styled.View`
 
 const TotalPoints = styled.Text`
     color: ${colours.white};
-    font-size: 18px;
+    font-size: 15px;
     padding: 10px;
 `;
 
@@ -188,13 +189,13 @@ const TotalScoreWrapper = styled.View`
 
 const TotalScore = styled.Text`
     font-weight: 600;
-    font-size: 25px;
+    font-size: 15px;
     color: ${colours.white};
 `;
 
 const DoneButton = styled.TouchableOpacity`
     position: absolute;
-    bottom: 100px;
+    bottom: 8%;
     align-self: center;
     padding: 10px;
     border-radius: 30px;
@@ -204,7 +205,7 @@ const DoneButton = styled.TouchableOpacity`
 
 const Done = styled.Text`
     color: ${colours.white};
-    font-size: 20px;
+    font-size: 15px;
     text-align: center;
     font-weight: 600;
 `;
