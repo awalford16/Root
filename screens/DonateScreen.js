@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Swiper from 'react-native-swiper';
 import { FontAwesome } from '@expo/vector-icons';
+import { Dimensions, Alert } from 'react-native';
 
 import colours from '../components/Colours';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalBar from '../components/ModalBar';
 import {charityList} from '../data/charities';
 import firebase from '../components/Firebase';
-import { Alert } from 'react-native';
 import DonateConfirm from '../components/DonateConfirm';
 
 export default class DonateScreen extends Component {
@@ -109,6 +109,7 @@ export default class DonateScreen extends Component {
     }
 
     render() {
+        const width = Dimensions.get('window').width;
         return (
             <Container>
                 { !this.state.showConfirmation && <DonateStats>
@@ -133,7 +134,8 @@ export default class DonateScreen extends Component {
 
                     <Swiper ref="charities" loop={false} 
                         showsPagination={false} showsButtons={false} 
-                        onIndexChanged={(index) => this.setState({selectedCharity: index})}>
+                        onIndexChanged={(index) => this.setState({selectedCharity: index})}
+                        containerStyle={{width}}>
                         {
                         charityList.map((charity, index) => (
                             <CharitySlider key={index}>
@@ -241,7 +243,7 @@ const DonateStats = styled.View`
 const DonateAmount = styled.TextInput`
     color: ${colours.white};
     font-weight: 600;
-    font-size: 40px;
+    font-size: 35px;
     padding: 2%;
     text-align: center;
 `;

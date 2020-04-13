@@ -35,9 +35,9 @@ const Container = styled.View`
     background-color: ${colours.white};
     width: 100%;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
     justify-content: flex-end;
-    margin-top: 50px;
+    margin-top: 10px;
 `;
 
 const Logo = styled.Image`

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button, ActivityIndicator, Text, Picker} from 'react-native';
+import {Button, ActivityIndicator, Text, KeyboardAvoidingView} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/core';
 import { Component } from 'react';
 import firebase from '../components/Firebase';
 import { colors } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class ProfileScreen extends Component {
     constructor(props) {
@@ -158,7 +159,7 @@ export default class ProfileScreen extends Component {
                     </CarSettings>
                     
                 </SettingsWrapper> : <ActivityIndicator /> }
-
+                        
                 <SaveSettings disabled={!this.state.settingsChanged} onPress={() => this._saveChages()}>
                     <Save>Save</Save>
                 </SaveSettings>
@@ -180,7 +181,7 @@ const Wrapper = styled.View`
 const ProfileInfo = styled.View`
     flex-direction: row;
     width: 100%;
-    height: 200px;
+    height: 150px;
     margin-top: 40px;
     justify-content: space-evenly;
     align-items: center;
@@ -226,6 +227,7 @@ const SettingsWrapper = styled.View`
     flex: 0.5;
     width: 100%;
     justify-content: space-evenly;
+    margin-top: 20px;
 `;
 
 const Setting = styled.View`
@@ -261,12 +263,13 @@ const SettingName = styled.Text`
 
 const SaveSettings = styled.TouchableOpacity`
     position: absolute;
-    bottom: 100px;
+    bottom: 50px;
     align-self: center;
-    padding: 10px;
-    background-color: ${props => props.disabled ? colours.green : colours.white};
+    height: ${props => props.disabled ? 0 : 40};
+    background-color: ${colours.white};
     border-radius: 30px;
     width: 40%;
+    justify-content: center;
 `;
 
 const Save = styled.Text`

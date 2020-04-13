@@ -27,7 +27,6 @@ export default class Destination extends Component {
             <Container>
                 <GoogleAutoComplete apiKey={PLACES_KEY} 
                     debounce={300} 
-                    components="country:uk" 
                     radius="50" 
                     lat={this.props.location.latitude} 
                     lng={this.props.location.longitude}

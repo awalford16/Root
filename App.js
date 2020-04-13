@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import {decode, encode} from 'base-64';
 
 import HomeScreen from './screens/HomeScreen';
 import DonateScreen from './screens/DonateScreen';
@@ -18,6 +19,11 @@ const Ops = {
   headerTitle: '',
   headerTransparent: true
 }
+
+if (!global.btoa) global.btoa = encode;
+if (!global.atob) global.atob = decode;
+
+console.disableYellowBox = true;
 
 function ModalStackScreen() {
   return(
