@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FontAwesome, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import {Text} from 'react-native';
+import {StatusBar} from 'react-native';
 
 import colours from '../components/Colours';
 import firebase from '../components/Firebase';
@@ -51,6 +51,11 @@ export default class JourneyEndScreen extends Component {
         const {navigation, route} = this.props;
         return(
             <Container>
+                <StatusBar    
+                    hidden = {false}
+                    backgroundColor={colours.green}
+                    barStyle='light-content'
+                />
                 <TitleBar>
                     <UserImage source={this.state.userImg} />
                     <Title>Journey Complete!</Title>

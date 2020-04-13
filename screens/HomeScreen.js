@@ -157,6 +157,8 @@ export default class HomeScreen extends Component {
             <Container>
                 <StatusBar    
                     hidden = {false}
+                    backgroundColor="white"
+                    barStyle='dark-content'
                 /> 
                 <StatusBarPaddingIOS />
 

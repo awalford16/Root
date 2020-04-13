@@ -35,6 +35,9 @@
       "config": {
         "googleMaps": {"apiKey": "AIzaSyCp3_KwYYF7mFU_mqRtjQB9a1-Df7L4piI"}
       }
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content"
     }
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button, ActivityIndicator, Text, KeyboardAvoidingView} from 'react-native';
+import {Button, ActivityIndicator, Text, StatusBar} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -108,6 +108,11 @@ export default class ProfileScreen extends Component {
         const {navigation} = this.props;
         return(
             <Container>
+                <StatusBar    
+                    hidden = {false}
+                    backgroundColor={colours.green}
+                    barStyle='light-content'
+                /> 
                 <ProfileInfo>
                     <Wrapper>
                         <FontAwesome name="times-circle" color={colours.white} size={30} onPress={() => navigation.goBack()} /> 
