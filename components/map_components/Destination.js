@@ -3,9 +3,9 @@ import {GoogleAutoComplete} from 'react-native-google-autocomplete';
 import styled from 'styled-components';
 import {FontAwesome} from 'react-native-vector-icons';
 
-import colours from './Colours';
+import colours from '../Colours';
 import { View, ActivityIndicator, Button, Text } from 'react-native';
-import {PLACES_KEY} from '../key.js';
+import {PLACES_KEY} from '../../key.js';
 import LocationItem from './LocationItem';
 
 export default class Destination extends Component {

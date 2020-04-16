@@ -3,8 +3,8 @@ import MapView from 'react-native-maps';
 import styled from 'styled-components';
 import MapViewDirections from 'react-native-maps-directions';
 
-import colours from './Colours';
-import {DIRECTIONS_KEY} from '../key';
+import colours from '../Colours';
+import {DIRECTIONS_KEY} from '../../key';
 import { Dimensions, Text } from 'react-native';
 
 let mapView = null;

@@ -6,7 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import Destination from './Destination';
 import Map from './Map';
-import colours from './Colours';
+import colours from '../Colours';
 import { Dimensions } from 'react-native';
 
 export default class MapContainer extends Component {

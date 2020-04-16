@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
-import colours from './Colours';
+import colours from '../Colours';
 
 class LocationItem extends PureComponent {
     _handlePress = async() => {

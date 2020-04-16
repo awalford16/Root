@@ -5,9 +5,8 @@ import {getDistance} from 'geolib';
 import * as Location from 'expo-location';
 
 import colours from '../components/Colours';
-import { RouteProp } from '@react-navigation/core';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import Map from '../components/Map';
+import Map from '../components/map_components/Map';
 import firebase from '../components/Firebase';
 
 export default class JourneyScreen extends Component {
