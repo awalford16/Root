@@ -16,6 +16,7 @@ import TitleBar from '../components/TitleBar';
 import DonateScreen from './DonateScreen';
 import ModalScreen from './ModalScreen';
 import firebase from '../components/Firebase';
+import Splash from '../components/Splash';
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -27,6 +28,7 @@ export default class HomeScreen extends Component {
         this.state = {
             modalVisible: false, 
             journeyReady: false,
+            isLoading: true,
             journeyInfo: {
                 location: "",
                 time: 0,
@@ -80,7 +82,7 @@ export default class HomeScreen extends Component {
 
         this.setState({
             userData: user,
-            isRefreshing: false
+            isLoading: false
         });
     }
 
@@ -155,6 +157,7 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <Container>
+                { this.state.isLoading && <Splash /> }
                 <StatusBar    
                     hidden = {false}
                     backgroundColor="white"

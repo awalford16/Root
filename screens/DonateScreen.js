@@ -69,6 +69,7 @@ export default class DonateScreen extends Component {
             this.donateRef.add({
                 amount: this.state.donationAmount,
                 charity: charityList[this.state.selectedCharity].name,
+                date: new Date()
             }).then((docRef) => {
                 this.setState({
                     selectedCharity: 0,
