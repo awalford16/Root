@@ -4,6 +4,7 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 import styled from 'styled-components';
 import {Text} from 'react-native';
 import { useNavigation } from '@react-navigation/core';
+import Constants from 'expo-constants';
 
 export default function TitleBar(props) {
     const navigation = useNavigation();
@@ -37,7 +38,7 @@ const Container = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 10px;
+    margin-top: ${Constants.statusBarHeight};
 `;
 
 const Logo = styled.Image`
