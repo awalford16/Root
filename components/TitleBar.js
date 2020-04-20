@@ -42,8 +42,9 @@ const Container = styled.View`
 `;
 
 const Logo = styled.Image`
-    width: 150px;
-    height: 45px;
+    width: 120px;
+    height: 35px;
+    resize-mode: contain;
     position: absolute;
     left: 15px;
 `;
