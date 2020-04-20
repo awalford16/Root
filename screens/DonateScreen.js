@@ -215,8 +215,8 @@ const CharityTitle = styled.View`
 `;
 
 const CharityLogo = styled.Image`
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     resize-mode: contain;
 `;
 
@@ -227,7 +227,7 @@ const Title = styled.Text`
 `;
 
 const CharityInfo = styled.Text`
-    font-size: 14px;
+    font-size: 12px;
 `;
 
 const ChangeCharity = styled.TouchableOpacity`
@@ -244,7 +244,7 @@ const DonateStats = styled.View`
 const DonateAmount = styled.TextInput`
     color: ${colours.white};
     font-weight: 600;
-    font-size: 35px;
+    font-size: 32px;
     padding: 2%;
     text-align: center;
 `;
@@ -252,12 +252,12 @@ const DonateAmount = styled.TextInput`
 const PointsRemaining = styled.Text`
     color: ${colours.unselected};
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
     margin: 2%;
 `;
 
 const Decimal = styled.Text`
-    font-size: 20px;
+    font-size: 15px;
     color: ${colours.white};
 `;
 

@@ -74,7 +74,7 @@ const DestinationInput = styled.TextInput`
     background-color: ${colours.white};
     align-self: center;
     padding: 10px;
-    font-size: 15px;
+    font-size: 12px;
     color: ${colours.black};
     border: 1px solid ${colours.grey};
     width: 80%;

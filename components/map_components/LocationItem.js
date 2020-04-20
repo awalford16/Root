@@ -33,5 +33,5 @@ const Container = styled.TouchableOpacity`
 `;
 
 const Place = styled.Text`
-    font-size: 16px;
+    font-size: 12px;
 `;

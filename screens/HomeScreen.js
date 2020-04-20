@@ -202,7 +202,6 @@ const DonationToggle = styled.TouchableOpacity`
     position: absolute;
     bottom: 40px;
     width: 35%;
-    height: 50px;
     background-color: ${colours.green};
     align-self: center;
     padding: 15px;

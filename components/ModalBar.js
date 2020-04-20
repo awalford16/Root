@@ -10,17 +10,17 @@ export default function ModalBar(props) {
     const navigation = useNavigation();
     return(
         <Container>
-            <FontAwesome onPress={() => props.hideModal(false)} color={colours.unselected} name="angle-down" size={40} style={{alignSelf: 'center'}} />
+            <FontAwesome onPress={() => props.hideModal(false)} color={colours.unselected} name="angle-down" size={30} style={{alignSelf: 'center'}} />
             <NavTabs>
                 <FontAwesome 
                     onPress={() => props.selectView(0)} 
-                    name="bar-chart-o" size={25} color={props.openView == 0 ? colours.white : colours.unselected} />
+                    name="bar-chart-o" size={22} color={props.openView == 0 ? colours.white : colours.unselected} />
                 <FontAwesome 
                     onPress={() => props.selectView(1)} 
-                    name="handshake-o" size={25} color={props.openView == 1 ? colours.white : colours.unselected} />
+                    name="handshake-o" size={22} color={props.openView == 1 ? colours.white : colours.unselected} />
                 <FontAwesome 
                     onPress={() => props.selectView(2)} 
-                    name="history" size={25} color={props.openView == 2 ? colours.white : colours.unselected} />
+                    name="history" size={22} color={props.openView == 2 ? colours.white : colours.unselected} />
             </NavTabs>
         </Container>
     );

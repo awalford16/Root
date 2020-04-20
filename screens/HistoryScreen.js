@@ -84,16 +84,16 @@ export default class HistoryScreen extends Component {
             return(
                 <Swipeout right={swipeBtns} backgroundColor="transparent">
                     <JourneyContainer>
-                        <Ionicons name={data.transport} size={40} color={colours.white} />
+                        <Ionicons name={data.transport} size={30} color={colours.white} />
                         <InfoWrapper>
                             <LocationName>{data.destination}</LocationName>
                             <JourneyStats>
                                 <PointWrapper>
-                                    <FontAwesome name="leaf" size={15} color={colours.white} />
+                                    <FontAwesome name="leaf" size={12} color={colours.white} />
                                     <Points>{data.points}</Points>
                                 </PointWrapper>
                                 <PointWrapper>
-                                    <MaterialCommunityIcons name="periodic-table-co2" size={15} color={colours.white} />
+                                    <MaterialCommunityIcons name="periodic-table-co2" size={12} color={colours.white} />
                                     <Points>{data.co2}</Points>
                                 </PointWrapper>
                             </JourneyStats>
@@ -128,12 +128,12 @@ const Container = styled.View`
 `;
 
 const JourneyContainer = styled.View`
-    border-top-width: 1px;
+    border-top-width: 2px;
     border-top-color: ${colours.unselected};
     padding: 10px;
     width: 90%;
     align-self: center;
-    margin: 10px;
+    margin: 5px;
     flex-direction: row;
     align-items: center;
 `;
@@ -162,12 +162,12 @@ const PointWrapper = styled.View`
 const Points = styled.Text`
     color: ${colours.white};
     margin: 2px;
-    font-size: 16px;
+    font-size: 12px;
 `;
 
 const LocationName = styled.Text`
     color: ${colours.white};
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
 `;
 
