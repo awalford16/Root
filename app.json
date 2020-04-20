@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Blank Template",
-    "slug": "GreenPath",
+    "name": "Root",
+    "slug": "root",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -33,11 +33,14 @@
     "android": {
       "package": "com.uol.greenpath",
       "config": {
-        "googleMaps": {"apiKey": ""}
+        "googleMaps": {
+          "apiKey": ""
+        }
       }
     },
     "androidStatusBar": {
       "barStyle": "light-content"
-    }
+    },
+    "description": "WAL15599328 CMP3035M Assignment"
   }
 }
