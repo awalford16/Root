@@ -3,13 +3,13 @@
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
-        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/../../GreenPath/gen" />
-        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/../../GreenPath/gen" />
-        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/../../GreenPath/AndroidManifest.xml" />
-        <option name="RES_FOLDER_RELATIVE_PATH" value="/../../GreenPath/res" />
-        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/../../GreenPath/assets" />
-        <option name="LIBS_FOLDER_RELATIVE_PATH" value="/../../GreenPath/libs" />
-        <option name="PROGUARD_LOGS_FOLDER_RELATIVE_PATH" value="/../../GreenPath/proguard_logs" />
+        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/../../Root/gen" />
+        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/../../Root/gen" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/../../Root/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/../../Root/res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/../../Root/assets" />
+        <option name="LIBS_FOLDER_RELATIVE_PATH" value="/../../Root/libs" />
+        <option name="PROGUARD_LOGS_FOLDER_RELATIVE_PATH" value="/../../Root/proguard_logs" />
       </configuration>
     </facet>
   </component>
