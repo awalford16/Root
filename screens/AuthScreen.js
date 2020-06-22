@@ -28,13 +28,22 @@ export default class AuthScreen extends Component {
                 firebase.auth().signInWithCredential(credential)
                     .then(
                         function(result) {
-                            firebase.firestore().collection('users').doc(result.user.uid)
-                            .set({
-                                gmail: result.user.email,
-                                profile_image: result.additionalUserInfo.profile.picture,
-                                username: result.additionalUserInfo.profile.name
-                            })
-                            .catch((error) => {console.log(error)})
+                            if (result.additionalUserInfo.isNewUser) {
+                                firebase.firestore().collection('users').doc(result.user.uid)
+                                .set({
+                                    gmail: result.user.email,
+                                    profile_image: result.additionalUserInfo.profile.picture,
+                                    username: result.additionalUserInfo.profile.name,
+                                    created_at: Date.now(),
+                                    points: 0,
+                                    c02: 0
+                                })
+                                .catch((error) => {console.log(error)})
+                            } else {
+                                firebase.firestore().collection('users').doc(result.user.uid).update({
+                                    last_logged_in: Date.now()
+                                })
+                            }
                         }
                     )
                     .catch(function(error) {
