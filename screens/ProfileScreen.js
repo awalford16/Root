@@ -168,6 +168,10 @@ export default class ProfileScreen extends Component {
                 <SaveSettings disabled={!this.state.settingsChanged} onPress={() => this._saveChages()}>
                     <Save>Save</Save>
                 </SaveSettings>
+
+                <Logout onPress={() => firebase.auth().signOut()}>
+                    <LogoutText>Sign Out</LogoutText>
+                </Logout>
             </Container>
         );
     }
@@ -281,4 +285,21 @@ const Save = styled.Text`
     color: ${colours.green};
     font-size: 20px;
     text-align: center;
+`;
+
+const LogoutText = styled.Text`
+    color: ${colours.red};
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+`;
+
+const Logout = styled.TouchableOpacity`
+    background: ${colours.white};
+    width: 50%;
+    padding: 10px;
+    align-self: center;
+    margin-top: 100px;
+    border-radius: 20px;
+    border: 1px solid ${colours.red};
 `;

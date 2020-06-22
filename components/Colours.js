@@ -4,10 +4,11 @@ export default {
     green2: '#2F683D',
     green: '#007A59',
     white: '#FFFFFF',
-    red: '#eb3838',
+    red: '#DE5246',
     grey: '#d3d3d3',
     black: '#000',
-    unselected: '#72c096'
+    unselected: '#72c096',
+    darkblue: '#3b5998'
   };
   
   // 339966

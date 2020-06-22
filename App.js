@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,6 +10,8 @@ import DonateScreen from './screens/DonateScreen';
 import JourneyScreen from './screens/JourneyScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import JourneyEndScreen from './screens/JourneyEndScreen';
+import AuthScreen from './screens/AuthScreen';
+import SplashScreen from './screens/SplashScreen';
 
 const RootStack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -36,7 +38,9 @@ function ModalStackScreen() {
 function MainStackScreen() {
   return(
     <MainStack.Navigator>
-      <MainStack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}  />
+      <MainStack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}} />
+      <MainStack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
+      <MainStack.Screen name="Auth" component={AuthScreen} options={{headerShown: false}} />
       <MainStack.Screen name="Journey" component={JourneyScreen} options={{headerShown: false}} />
       <MainStack.Screen name="JourneyEnd" component={JourneyEndScreen} options={{headerShown: false}} />
     </MainStack.Navigator>

@@ -84,9 +84,9 @@ export default class HomeScreen extends Component {
         });
     }
 
-    componentDidCatch(error, info) {
-        console.log(error, info.componentStack);
-    }
+    // componentDidCatch(error, info) {
+    //     console.log(error, info.componentStack);
+    // }
 
     handleTransportChange = (opt) => {
         this.setState({transportInfo: {

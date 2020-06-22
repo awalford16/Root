@@ -3,7 +3,7 @@ import '@firebase/firestore';
 import {FIREBASE_KEY} from '../key';
 
 const config = {
-    apiKey: {FIREBASE_KEY},
+    apiKey: FIREBASE_KEY,
     authDomain: "greenpath-269612.firebaseapp.com",
     databaseURL: "https://greenpath-269612.firebaseio.com",
     projectId: "greenpath-269612",
