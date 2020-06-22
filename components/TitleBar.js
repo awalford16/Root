@@ -23,7 +23,7 @@ export default function TitleBar(props) {
                     </UserPoints>
                 </Stats>
                 <Profile onPress={() => navigation.navigate('Modal')}>
-                    <ProfileImage source={props.userData.img} />
+                    <ProfileImage source={{ uri: props.userData.img }} />
                 </Profile>
             </UserInfo>
         </Container>

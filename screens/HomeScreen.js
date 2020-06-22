@@ -20,8 +20,6 @@ export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.ref = firebase.firestore().collection("users").doc('DbxeQr62SuBFdNnVBLZY');
-
         this.unsubscribe = null;
         this.state = {
             modalVisible: false, 
@@ -59,8 +57,14 @@ export default class HomeScreen extends Component {
     componentDidMount() {
         this.setState(this.baseState);
 
-        // Update user info whenever firebase data changes
-        this.unsubscribe = this.ref.onSnapshot(this.onUserUpdate);
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) throw new Error('No user logged in.');
+            
+            this.ref = firebase.firestore().collection('users').doc(user.uid);
+
+            // Update user info whenever firebase data changes
+            this.unsubscribe = this.ref.onSnapshot(this.onUserUpdate);
+        }.bind(this));
     }
 
     componentWillUnmount() {
@@ -70,12 +74,12 @@ export default class HomeScreen extends Component {
     onUserUpdate = (doc) => {
         let user = {};
         
-        const {name, points, co2, image} = doc.data();
+        const {username, points, c02, profile_image} = doc.data();
         user = {
-            name: name,
+            name: username,
             points: points,
-            co2: co2,
-            img: image
+            co2: c02,
+            img: profile_image
         }
 
         this.setState({
