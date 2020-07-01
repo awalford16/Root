@@ -16,6 +16,7 @@ import ModalScreen from './ModalScreen';
 import firebase from '../components/Firebase';
 import Splash from '../components/Splash';
 import GetUser from '../components/GetUser';
+import ProfileScreen from './ProfileScreen2';
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -166,6 +167,8 @@ export default class HomeScreen extends Component {
                 /> 
 
                 <TitleBar showModal={this.setModalVisible} modalVisible={this.state.modalVisible} userData={this.state.userData} />
+
+                <ProfileScreen user={this.state.userData} />
 
                 <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
 

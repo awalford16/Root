@@ -73,12 +73,13 @@ const Container = styled.View``;
 const DestinationInput = styled.TextInput`
     background-color: ${colours.white};
     align-self: center;
-    padding: 10px;
+    padding: 15px;
     font-size: 12px;
     color: ${colours.black};
     border: 1px solid ${colours.grey};
     width: 80%;
     font-weight: 600;
+    border-radius: 20px;
 `;
 
 const DestinationResults = styled.ScrollView`
