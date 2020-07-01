@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FontAwesome } from '@expo/vector-icons';
 import * as Google from 'expo-google-app-auth';
+import * as Facebook from 'expo-facebook';
 import firebase from 'firebase';
 
 import colours from '../components/Colours';
-import {GOOGLE_AUTH_IOS} from '../key';
+import {GOOGLE_AUTH_IOS, FACEBOOK_AUTH_ID} from '../key';
 import logo_white from '../assets/logo_white.png';
-
+import GetUser from '../components/GetUser';
 
 export default class AuthScreen extends Component {
 
+    //#region Google Sign In
     onSignIn = (googleUser) => {
         console.log('Google Auth Response', googleUser);
         // We need to register an Observer on Firebase Auth to make sure auth is initialized.
@@ -37,7 +39,7 @@ export default class AuthScreen extends Component {
                                     created_at: Date.now(),
                                     points: 0,
                                     c02: 0
-                                })
+                                }).then(() => this.sendEmailVerification())
                                 .catch((error) => {console.log(error)})
                             } else {
                                 firebase.firestore().collection('users').doc(result.user.uid).update({
@@ -97,19 +99,63 @@ export default class AuthScreen extends Component {
             return { error: true };
         }
     }
+    //#endregion
+
+    //#region Facebook Sign In
+    async loginWithFacebook() {
+        await Facebook.initializeAsync(FACEBOOK_AUTH_ID, 'Root');
+
+        const {type, token} = await Facebook.logInWithReadPermissionsAsync(
+            FACEBOOK_AUTH_ID, {permissions: ['public_profile']}
+        )
+
+        switch(type) {
+            case 'success': {
+                const credential = firebase.auth().FacebookAuthProvider.credential(token);
+
+                firebase.auth().signInWithCredential(credential).catch((error) => {
+                    console.log(error);
+                });
+
+                return Promise.resolve({type: 'success'});
+            }
+
+            case 'cancel': {
+                return Promise.reject({type: 'cancel'});
+            }
+        }
+    }
+    //#endregion
+
+    // Send verfication email
+    sendSignUpEmail() {
+        const user = GetUser();
+        user.sendEmailVerification().catch(function(error) {
+            console.log(error);
+        });
+    }
 
     render() {
         return(
             <Container>
                 <Logo source={logo_white} />
 
+                <Welcome>
+                    <WelcomeMessage>
+                        Improving the World, One Step at a Time...
+                    </WelcomeMessage>
+                </Welcome>
+
                 <AuthOptions>
+                    <LoginMessage>
+                        Please Log In to begin tracking your journeys.
+                    </LoginMessage>
                     <AuthButton onPress={() => this.signInWithGoogleAsync()}>
                         <FontAwesome name='google' size={25} color={colours.white} />
                         <ButtonText>Sign In with Google</ButtonText>
                     </AuthButton>
 
-                    <AuthButton onPress={() => console.log('hello')} style={{backgroundColor: colours.darkblue}}>
+                    <AuthButton onPress={() => this.loginWithFacebook()} style={{backgroundColor: colours.darkblue}}>
                         <FontAwesome name='facebook' size={25} color={colours.white} />
                         <ButtonText>Sign In with Facebook</ButtonText>
                     </AuthButton>
@@ -123,7 +169,7 @@ const Container = styled.View`
     flex: 1;
     background-color: ${colours.green};
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 `;
 
 const Logo = styled.Image`
@@ -132,8 +178,30 @@ const Logo = styled.Image`
     resize-mode: contain;
 `;
 
+const Welcome = styled.View`
+    flex: 0.3;
+`;
+
+const WelcomeMessage = styled.Text`
+    color: ${colours.unselected};
+    font-size: 15px;
+`;
+
 const AuthOptions = styled.View`
     width: 80%;
+    background-color: ${colours.white};
+    padding: 10px;
+    height: 270px;
+    justify-content: flex-start;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+`;
+
+const LoginMessage = styled.Text`
+    align-self: center;
+    padding: 5px;
+    font-size: 12px;
 `;
 
 const AuthButton = styled.TouchableOpacity`

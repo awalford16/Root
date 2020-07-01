@@ -11,21 +11,20 @@ import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { Component } from 'react';
 import firebase from '../components/Firebase';
-import { colors } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
+import GetUser from '../components/GetUser';
 
 export default class ProfileScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.ref = firebase.firestore().collection("users").doc('DbxeQr62SuBFdNnVBLZY');
+        this.ref = firebase.firestore().collection("users");
 
         this.state = {
             isLoading: true,
             userPoints: 0,
             userCO2: 0,
             uname: "",
-            uimg: require('../assets/user-picture.png'),
+            uimg: '',
             settingsChanged: false,
             mpg: "35"
         }
@@ -34,15 +33,18 @@ export default class ProfileScreen extends Component {
     componentDidMount() {
         this.getPermissionsAsync();
 
-        this.ref.get().then((doc) => {
+        // Get logged in user
+        const user = GetUser();
+
+        this.ref.doc(user.uid).get().then((doc) => {
             let data = doc.data();
 
             this.setState({
                 isLoading: false,
                 userPoints: data.points,
-                userCO2: data.co2,
-                uname: data.name,
-                uimg: data.image
+                userCO2: data.c02,
+                uname: data.username,
+                uimg: data.profile_image
             })
 
         });
@@ -69,7 +71,7 @@ export default class ProfileScreen extends Component {
         if (!result.cancelled) {
             let selectedImage = `data:image/jpg;base64,${result.base64}`;
             this.setState({
-                uimg: {uri: selectedImage},
+                uimg: selectedImage,
                 settingsChanged: true
             })
         }
@@ -119,7 +121,7 @@ export default class ProfileScreen extends Component {
                     </Wrapper>
 
                     <Wrapper>
-                        <UserImage source={this.state.uimg} />
+                        <UserImage source={{uri: this.state.uimg}} />
                         <ChangeImage title="Change" onPress={() => this._pickImage()}>
                             <Text>Change</Text>
                         </ChangeImage>

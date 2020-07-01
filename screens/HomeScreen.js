@@ -15,12 +15,14 @@ import DonateScreen from './DonateScreen';
 import ModalScreen from './ModalScreen';
 import firebase from '../components/Firebase';
 import Splash from '../components/Splash';
+import GetUser from '../components/GetUser';
 
 export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
 
         this.unsubscribe = null;
+
         this.state = {
             modalVisible: false, 
             journeyReady: false,
@@ -49,7 +51,7 @@ export default class HomeScreen extends Component {
             userData: {
                 points: 0,
                 co2: 0,
-                img: require('../assets/user-picture.png')
+                img: ''
             }
         }
     }
@@ -57,14 +59,11 @@ export default class HomeScreen extends Component {
     componentDidMount() {
         this.setState(this.baseState);
 
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (!user) throw new Error('No user logged in.');
-            
-            this.ref = firebase.firestore().collection('users').doc(user.uid);
+        user = GetUser();
+        this.ref = firebase.firestore().collection('users').doc(user.uid);
 
-            // Update user info whenever firebase data changes
-            this.unsubscribe = this.ref.onSnapshot(this.onUserUpdate);
-        }.bind(this));
+        // Update user info whenever firebase data changes
+        this.unsubscribe = this.ref.onSnapshot(this.onUserUpdate);
     }
 
     componentWillUnmount() {
