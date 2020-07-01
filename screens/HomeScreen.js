@@ -63,14 +63,14 @@ export default class HomeScreen extends Component {
         this.ref = firebase.firestore().collection('users').doc(user.uid);
 
         // Update user info whenever firebase data changes
-        this.unsubscribe = this.ref.onSnapshot(this.onUserUpdate);
+        this.unsubscribe = this.ref.onSnapshot(doc => this.updateUser(doc));
     }
 
     componentWillUnmount() {
         this.unsubscribe();
     }
 
-    onUserUpdate = (doc) => {
+    updateUser = (doc) => {
         let user = {};
         
         const {username, points, c02, profile_image} = doc.data();

@@ -171,7 +171,7 @@ export default class ProfileScreen extends Component {
                     <Save>Save</Save>
                 </SaveSettings>
 
-                <Logout onPress={() => firebase.auth().signOut()}>
+                <Logout onPress={() => console.log('TBC')}>
                     <LogoutText>Sign Out</LogoutText>
                 </Logout>
             </Container>
