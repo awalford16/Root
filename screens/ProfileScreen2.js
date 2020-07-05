@@ -41,7 +41,7 @@ export default function PofileScreen(props) {
                     </Setting>
                 </Settings>
 
-                <Logout onPress={() => console.log('TBC')}>
+                <Logout onPress={() => props.signOut()}>
                     <LogoutText>Sign Out</LogoutText>
                 </Logout>
             </Container>

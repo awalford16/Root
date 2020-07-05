@@ -160,6 +160,12 @@ export default class HomeScreen extends Component {
             journeyReady: false
         });
     }
+
+    handleSignOut = () => {
+        this.toggleProfile(false);
+        this.unsubscribe();
+        firebase.auth().signOut();
+    }
     
     render() {
         return (
@@ -179,18 +185,32 @@ export default class HomeScreen extends Component {
                     profile={this.state.profile}
                     />
 
-                <ProfileScreen user={this.state.userData} visible={this.state.profile} close={this.toggleProfile} />
+                <ProfileScreen 
+                    user={this.state.userData} 
+                    visible={this.state.profile} 
+                    close={this.toggleProfile} 
+                    signOut={this.handleSignOut}
+                    />
 
-                <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
+                <TransportOptions 
+                    selected={this.state.transportInfo.method} 
+                    changeTransport={this.handleTransportChange} />
 
-                <MapContainer journeyReady={this.state.journeyReady} transportMode={this.state.transportInfo.method} updateJourney={this.updateJourney} />
+                <MapContainer 
+                    journeyReady={this.state.journeyReady} 
+                    transportMode={this.state.transportInfo.method} 
+                    updateJourney={this.updateJourney} />
 
                 {
-                    this.state.journeyReady && <JourneyStats journeyInfo={this.state.journeyInfo} transport={this.state.transportInfo} />
+                    this.state.journeyReady && 
+                        <JourneyStats journeyInfo={this.state.journeyInfo} transport={this.state.transportInfo} />
                 }
 
                 {/* { !this.state.journeyReady && <DonateButton /> } */}
-                <ModalScreen userData={this.state.userData} showModal={this.setModalVisible} modalVisible={this.state.modalVisible} />
+                <ModalScreen 
+                    userData={this.state.userData} 
+                    showModal={this.setModalVisible} 
+                    modalVisible={this.state.modalVisible} />
 
                 {!this.state.modalVisible && !this.state.journeyReady && 
                     <DonationToggle onPress={() => this.setModalVisible(true)}>

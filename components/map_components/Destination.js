@@ -86,9 +86,10 @@ const DestinationResults = styled.ScrollView`
     width: 80%;
     align-self: center;
     position: absolute;
-    top: 40px;
+    top: 50px;
     background-color: ${colours.white};
     border: 1px solid ${colours.grey};
+    border-radius: 20px;
     max-height: 300px;
 `;
 
