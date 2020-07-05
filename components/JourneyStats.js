@@ -45,8 +45,8 @@ const Container = styled.View`
     position: absolute;
     bottom: 50px;
     background-color: ${colours.white};
-    border: 1px solid ${colours.green};
-    border-radius: 80px;
+    border: 3px solid ${colours.green};
+    border-radius: 90px;
 `;
 
 const Stat = styled.View`

@@ -221,8 +221,8 @@ export default class HomeScreen extends Component {
 
                 {   this.state.journeyReady && 
                     <FontAwesome name="times-circle" 
-                        onPress={() => this.resetState()} size={32} color={colours.grey}
-                        style={{position: 'absolute', bottom: 150, alignSelf: 'center'}} />
+                        onPress={() => this.resetState()} size={32} color={colours.red}
+                        style={{position: 'absolute', bottom: 155, alignSelf: 'center'}} />
                 }
             </Container>
         )
