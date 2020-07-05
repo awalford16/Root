@@ -25,6 +25,7 @@ export default class HomeScreen extends Component {
         this.unsubscribe = null;
 
         this.state = {
+            profile: false,
             modalVisible: false, 
             journeyReady: false,
             isLoading: true,
@@ -150,6 +151,10 @@ export default class HomeScreen extends Component {
         this.setState({modalVisible: visible})
     }
 
+    toggleProfile = (visible) => {
+        this.setState({profile: visible})
+    }
+
     resetState = () => {
         this.setState({
             journeyReady: false
@@ -166,9 +171,15 @@ export default class HomeScreen extends Component {
                     barStyle='dark-content'
                 /> 
 
-                <TitleBar showModal={this.setModalVisible} modalVisible={this.state.modalVisible} userData={this.state.userData} />
+                <TitleBar 
+                    showModal={this.setModalVisible} 
+                    modalVisible={this.state.modalVisible} 
+                    userData={this.state.userData} 
+                    toggleProfile={this.toggleProfile}
+                    profile={this.state.profile}
+                    />
 
-                <ProfileScreen user={this.state.userData} />
+                <ProfileScreen user={this.state.userData} visible={this.state.profile} close={this.toggleProfile} />
 
                 <TransportOptions selected={this.state.transportInfo.method} changeTransport={this.handleTransportChange} />
 

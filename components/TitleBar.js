@@ -22,7 +22,7 @@ export default function TitleBar(props) {
                         <Points>{props.userData.points}</Points>
                     </UserPoints>
                 </Stats>
-                <Profile onPress={() => navigation.navigate('Modal')}>
+                <Profile onPress={() => props.toggleProfile(true)}>
                     <ProfileImage source={{ uri: props.userData.img }} />
                 </Profile>
             </UserInfo>

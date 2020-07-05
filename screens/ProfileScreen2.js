@@ -7,8 +7,12 @@ import colours from '../components/Colours';
 
 export default function PofileScreen(props) {
     return(
-        <Modal visible={true} transparent={true} animationType="fade">
+        <Modal visible={props.visible} transparent={true} animationType="fade">
             <Container>
+                <CloseButton onPress={() => props.close(false)}>
+                    <FontAwesome name='times' size={20} color={colours.grey} />
+                </CloseButton>
+
                 <UserInfo>
                     <ProfileImage source={{uri: props.user.img}} />
                     <UserName>{props.user.name}</UserName>
@@ -25,6 +29,18 @@ export default function PofileScreen(props) {
                     </UserPoints>
                 </Stats>
 
+                <Settings>
+                    <Setting>
+                        <FontAwesome name='car' color={colours.grey} size={32} />
+                        <SettingName>Vehicle Type</SettingName>
+                    </Setting>
+
+                    <Setting>
+                        <FontAwesome name='envelope' color={colours.grey} size={32} />
+                        <SettingName>Email Settings</SettingName>
+                    </Setting>
+                </Settings>
+
                 <Logout onPress={() => console.log('TBC')}>
                     <LogoutText>Sign Out</LogoutText>
                 </Logout>
@@ -34,7 +50,7 @@ export default function PofileScreen(props) {
 }
 
 const Container = styled.View`
-    flex: 0.4;
+    flex: 0.6;
     justify-content: center;
     align-items: center;
     background-color: ${colours.white};
@@ -56,6 +72,12 @@ const ProfileImage = styled.Image`
     border-radius: 50px;
     resize-mode: contain;
     border: 2px solid ${colours.white};
+`;
+
+const CloseButton = styled.TouchableOpacity`
+    position: absolute;
+    right: 30px;
+    top: 20px;
 `;
 
 const UserName = styled.Text`
@@ -82,6 +104,24 @@ const Points = styled.Text`
     font-size: 16px;
     font-weight: 600;
     font-style: italic
+`;
+
+const Settings = styled.View`
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 15px;
+`;
+
+const Setting = styled.View`
+    padding: 10px;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+`;
+
+const SettingName = styled.Text`
+    font-size: 15px;
+    padding: 5px;
 `;
 
 const LogoutText = styled.Text`
