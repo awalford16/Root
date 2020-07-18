@@ -10,12 +10,13 @@ import ModalBar from '../components/ModalBar';
 import {charityList} from '../data/charities';
 import firebase from '../components/Firebase';
 import DonateConfirm from '../components/DonateConfirm';
+import GetUser from '../components/GetUser';
 
 export default class DonateScreen extends Component {
     constructor(props){
         super(props);
 
-        this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY');
+        this.userRef = firebase.firestore().collection('users').doc(GetUser().uid);
         this.donateRef = this.userRef.collection('donations');
 
         this.state = {
@@ -152,22 +153,20 @@ export default class DonateScreen extends Component {
                         }
                     </Swiper>
 
-                    <ChangeCharity disabled={this.state.selectedCharity==2} 
+                    <ChangeCharity disabled={this.state.selectedCharity == (charityList.length - 1)} 
                         onPress={() => this.refs.charities.scrollBy(1)}>
                         <FontAwesome name="chevron-circle-right" size={30} 
-                            color={this.state.selectedCharity == 2 ? colours.unselected : colours.white} />
+                            color={this.state.selectedCharity == (charityList.length - 1) ? colours.unselected : colours.white} />
                     </ChangeCharity>
                 </CharityWrapper> }
                 
 
                 { !this.state.showConfirmation && <BottomBar>
                     <PageIndicator>
-                        <FontAwesome name="minus" size={20} style={{margin: 3}}
-                            color={this.state.selectedCharity === 0 ? colours.white : colours.unselected} />
-                        <FontAwesome name="minus" size={20} style={{margin: 3}}
-                            color={this.state.selectedCharity === 1 ? colours.white : colours.unselected} />
-                        <FontAwesome name="minus" size={20} style={{margin: 3}}
-                            color={this.state.selectedCharity === 2 ? colours.white : colours.unselected} />
+                        {charityList.map((c, i) => (
+                            <FontAwesome name="minus" size={20} style={{margin: 3}}
+                                color={this.state.selectedCharity === i ? colours.white : colours.unselected} />
+                        ))}
                     </PageIndicator>
 
                     <SubmitDonation onPress={() => this.submitDonation()} 
@@ -231,7 +230,8 @@ const CharityInfo = styled.Text`
 `;
 
 const ChangeCharity = styled.TouchableOpacity`
-
+    height: 200px;
+    justify-content: center;
 `;
 
 const DonateStats = styled.View`

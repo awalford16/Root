@@ -6,13 +6,14 @@ import {StatusBar} from 'react-native';
 import colours from '../components/Colours';
 import firebase from '../components/Firebase';
 import {transportList} from '../data/transport';
+import GetUser from '../components/GetUser';
 
 export default class JourneyEndScreen extends Component {
     constructor(props) {
         super(props);
 
         // Get journey from firebase database
-        this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY');
+        this.userRef = firebase.firestore().collection('users').doc(GetUser().uid);
         this.ref = this.userRef.collection('journeys').doc(props.route.params.docId);
 
         this.state = {
@@ -26,6 +27,7 @@ export default class JourneyEndScreen extends Component {
     }
 
     componentDidMount() {
+
         this.userRef.get().then((doc) => {
             let data = doc.data();
             this.setState({
@@ -33,7 +35,7 @@ export default class JourneyEndScreen extends Component {
                 userCO2: data.co2,
                 userImg: data.image
             })
-        })
+        });
 
         // Get all details about journey and save to state
         this.ref.get().then((doc) => {

@@ -33,7 +33,7 @@ export default class AuthScreen extends Component {
                             if (result.additionalUserInfo.isNewUser) {
                                 firebase.firestore().collection('users').doc(result.user.uid)
                                 .set({
-                                    gmail: result.user.email,
+                                    email: result.user.email,
                                     profile_image: result.additionalUserInfo.profile.picture,
                                     username: result.additionalUserInfo.profile.name,
                                     created_at: Date.now(),

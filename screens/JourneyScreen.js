@@ -8,12 +8,13 @@ import colours from '../components/Colours';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Map from '../components/map_components/Map';
 import firebase from '../components/Firebase';
+import GetUser from '../components/GetUser';
 
 export default class JourneyScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY');
+        this.userRef = firebase.firestore().collection('users').doc(GetUser().uid);
         this.ref = this.userRef.collection('journeys');
 
         this.state = {
@@ -134,7 +135,7 @@ export default class JourneyScreen extends Component {
         // Only upload journey if user earns points
         this.userRef.get().then((user) => {
             let userPoints = user.data().points + this.state.pointsEarned;
-            let userCO2 = user.data().co2 + this.state.currentCO2;
+            let userCO2 = user.data().c02 + this.state.currentCO2;
 
             this.userRef.update({
                 points: userPoints,
@@ -146,14 +147,14 @@ export default class JourneyScreen extends Component {
                 totalPoints: this.state.pointsEarned,
                 totalCO2: this.state.currentCO2,
                 method: this.props.route.params.transport.icon,
-                date: new Date(),
-                user: user.data().name
+                date: new Date()
             }).then((doc) => {
                 this.props.navigation.navigate('JourneyEnd', {docId: doc.id});
             })
         }).catch((error) => {
+            console.log(error);
             alert("Sorry, we were unable to log your journey.");
-        })
+        });
     }
 
     render() {

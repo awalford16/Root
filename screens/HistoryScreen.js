@@ -6,14 +6,15 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 
 import firebase from '../components/Firebase';
 import colours from '../components/Colours';
+import GetUser from '../components/GetUser';
 
 
 export default class HistoryScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.userRef = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY');
-        this.ref = firebase.firestore().collection('users').doc('DbxeQr62SuBFdNnVBLZY').collection('journeys');
+        this.userRef = firebase.firestore().collection('users').doc(GetUser().uid);
+        this.ref = this.userRef.collection('journeys');
 
         this.unsubscribe = null;
         this.state = {
